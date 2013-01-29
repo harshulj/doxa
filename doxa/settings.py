@@ -12,11 +12,9 @@ PROJECT_PATH = os.path.abspath(os.path.join( os.path.dirname(os.path.realpath(__
 
 MANAGERS = ADMINS
 
-print PROJECT_PATH
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'doxa',                      # Or path to database file if using sqlite3.
         'USER': 'doxa',                      # Not used with sqlite3.
         'PASSWORD': 'doxa',                  # Not used with sqlite3.
@@ -121,9 +119,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
 )
 
 # A sample logging configuration. The only tangible logging
