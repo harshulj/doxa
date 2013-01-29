@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
+
 {% block title %}
-Home
+	{% if user.is_authenticated %}
+		Home
+	{% else %}
+		Welcome to Doxa!
+	{% endif %}
+
 {% endblock %}
 
 {% block content %}
-It's Home!
+	{% if user.is_authenticated  %}
+		{% include 'signed.html' %}
+	{% else %}
+		{% include 'unsigned.html' %}
+	{% endif %}
 {% endblock %}
