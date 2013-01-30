@@ -12,6 +12,16 @@ PROJECT_PATH = os.path.abspath(os.path.join( os.path.dirname(os.path.realpath(__
 
 MANAGERS = ADMINS
 
+# django-registration settings
+ACCOUNT_ACTIVATION_DAYS=7
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = ''
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
