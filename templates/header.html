@@ -1,0 +1,11 @@
+<div id="header">
+    <ul class="head-nav">
+        <li class="head-nav-link"><a href="/">Doxa</a></li>
+        {% if user.is_authenticated %}
+            <li class="head-nav-link"><a href="{% url auth_logout %}">Logout</a></li>
+        {% else %}
+            <li class="head-nav-link"><a href="{% url registration_register %}">Register</a></li>
+            <li class="head-nav-link"><a href="{% url auth_login %}">Login</a></li>
+        {% endif %}
+    </ul>
+</div>
