@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$(".dropdown a").click(function(){
+	$(".dropdown-toggle").click(function(){
 		var x = $(this).attr("id");
 		if(x==1){
 			$(".submenu").hide();
@@ -9,16 +9,17 @@ $(document).ready(function(){
 			$(".submenu").show();
 			$(this).attr("id", "1");
 		}
+		return false;
 	});
 	
 	// If mouse clicks on submenu
-	$(".dropdown a").mouseup(function(){
+	$(".dropdown-toggle").mouseup(function(){
 		return false
 	});
 
 	// If mouse is clicked on document
 	$(document).mouseup(function(){
 		$(".submenu").hide();
-		$(".dropdown a").attr("id", "");
+		$(".dropdown-toggle").attr("id", "");
 	});
 });
