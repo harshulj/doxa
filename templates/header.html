@@ -2,12 +2,14 @@
     <ul class="head-nav">
         <li class="head-nav-link"><a href="/">Doxa</a></li>
         {% if user.is_authenticated %}
-        <li class="dropdown head-nav-link">
+        <li class="dropdown head-nav-link right">
             <a class="dropdown-toggle" href="#">Account</a>
-            <ul class="head-nav-link">
-                <li><a href="{% url auth_password_change  %}">Change Password</a></li>
-                <li><a href="{% url auth_logout %}">Logout</a></li>
-            </ul>
+            <div class="submenu">
+                <ul class="head-nav-links">
+                    <li><a href="{% url auth_password_change  %}">Change Password</a></li>
+                    <li><a href="{% url auth_logout %}">Logout</a></li>
+                </ul>
+            </div>
         </li>
         {% else %}
         <li class="head-nav-link"><a href="{% url registration_register %}">Register</a></li>
