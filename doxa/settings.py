@@ -28,6 +28,18 @@ ACCOUNT_INVITATION_DAYS = 7
 INVITATIONS_PER_USER = 10
 INVITE_MODE = True
 
+# Django private beta settings.
+
+PRIVATEBETA_ALWAYS_ALLOW_MODULES = [
+		'django.contrib.auth.views',
+        'django.contrib.admin.views.decorators',
+        'django.contrib.admin.views.main',
+        'django.contrib.admin.views.template',
+        'django.contrib.admin.sites',
+        'django.contrib.admindocs.views',
+        'django.views.static',
+	]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -118,6 +130,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
+    'privatebeta.middleware.PrivateBetaMiddleware',
 )
 
 ROOT_URLCONF = 'doxa.urls'
@@ -149,6 +162,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'invitation',
     'account',
+    'privatebeta',
 )
 
 # A sample logging configuration. The only tangible logging

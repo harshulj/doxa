@@ -34,14 +34,12 @@ urlpatterns += patterns('',
     # url(r'^$', 'doxa.views.home', name='home'),
     # url(r'^doxa/', include('doxa.foo.urls')),
 
-    # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     (r'^accounts/', include('account.reg.backends.doxa.urls')),
     (r'^accounts/', include('invitation.urls')),
     url(r'^$', direct_to_template, { 'template': 'index.html'} ),
+    url(r'^invite/', include('privatebeta.urls')),
 )
 
 if settings.DEBUG:
