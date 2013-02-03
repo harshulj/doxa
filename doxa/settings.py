@@ -26,6 +26,7 @@ DEFAULT_FROM_EMAIL = ''
 # Django invitation settings
 ACCOUNT_INVITATION_DAYS = 7
 INVITATIONS_PER_USER = 10
+INVITE_MODE = True
 
 DATABASES = {
     'default': {
@@ -147,6 +148,7 @@ INSTALLED_APPS = (
     'registration',
     'debug_toolbar',
     'invitation',
+    'account',
 )
 
 # A sample logging configuration. The only tangible logging

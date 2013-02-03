@@ -5,7 +5,7 @@
 	Register
 {% endblock %}
 {% block content %}
-<form method="post" action=".">
+<form method="post" action="{% url registration_register %}?invitation_key={{ invitation_key }}">
   {% csrf_token %}
   {{ form.as_p }}
 

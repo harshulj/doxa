@@ -1,6 +1,7 @@
 import os
 import random
 import datetime
+from django.utils.timezone import utc
 from django.db import models
 from django.conf import settings
 from django.utils.http import int_to_base36
@@ -96,7 +97,7 @@ class InvitationKey(models.Model):
         
         """
         expiration_date = datetime.timedelta(days=settings.ACCOUNT_INVITATION_DAYS)
-        return self.date_invited + expiration_date <= datetime.datetime.now()
+        return self.date_invited + expiration_date <= datetime.datetime.utcnow().replace(tzinfo=utc)
     key_expired.boolean = True
     
     def mark_used(self, registrant):
