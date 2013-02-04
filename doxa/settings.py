@@ -183,8 +183,9 @@ INSTALLED_APPS = (
     'registration',
     'debug_toolbar',
     'invitation',
-    'account',
     'privatebeta',
+    'account',
+    'userprofile',
 )
 
 # A sample logging configuration. The only tangible logging
