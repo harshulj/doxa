@@ -14,6 +14,8 @@ PROJECT_PATH = os.path.abspath(os.path.join( os.path.dirname(os.path.realpath(__
 
 MANAGERS = ADMINS
 
+LOGIN_REDIRECT_URL = '/'
+
 # django-registration settings
 ACCOUNT_ACTIVATION_DAYS=7
 EMAIL_HOST = 'localhost'
