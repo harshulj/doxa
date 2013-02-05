@@ -36,8 +36,9 @@ urlpatterns += patterns('',
 
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    (r'^accounts/', include('account.reg.backends.doxa.urls')),
-    (r'^accounts/', include('invitation.urls')),
+    url(r'^accounts/', include('account.reg.backends.doxa.urls')),
+    url(r'^accounts/', include('invitation.urls')),
+    url(r'^profile/', include('userprofile.urls')),
     url(r'^$', direct_to_template, { 'template': 'index.html'} ),
     url(r'^invite/', include('privatebeta.urls')),
 )
