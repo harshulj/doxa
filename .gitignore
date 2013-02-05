@@ -3,6 +3,7 @@ env/
 # C extensions
 *.so
 static/
+media/
 # Packages
 *.egg
 *.egg-info
