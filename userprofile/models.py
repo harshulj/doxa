@@ -45,7 +45,7 @@ class ProfilePic(models.Model):
 				pass
 		super(ProfilePic, self).delete()
 
-	def save(self):
+	def save(self, *args, **kwargs):
 		for pic in ProfilePic.objects.filter(user=self.user, valid=self.valid).exclude(id=self.id):
 			base, filename = os.path.split(pic.image.path)
 			name, extension = os.path.splitext(filename)
@@ -55,4 +55,4 @@ class ProfilePic(models.Model):
 				except:
 					pass
 			pic.delete()
-		super(ProfilePic, self).save()
+		super(ProfilePic, self).save(*args, **kwargs)
