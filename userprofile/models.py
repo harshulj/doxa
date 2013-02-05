@@ -19,7 +19,7 @@ class UserProfile(models.Model):
 	about = models.TextField(max_length=200, null=True, blank=True)
 
 	def __unicode__(self):
-		return _("%s %s's profile") % self.user.first_name % self.user.last_name
+		return _("%s %s's profile") % (self.user.first_name, self.user.last_name)
 
 class ProfilePic(models.Model):
 	"""
@@ -33,7 +33,7 @@ class ProfilePic(models.Model):
 		unique_together = (('user', 'valid'),)
 
 	def __unicode__(self):
-		return _("%s %s's Profile Pic") % self.user.first_name % self.user.last_name
+		return _("%s %s's Profile Pic") % (self.user.first_name , self.user.last_name)
 
 	def delete(self):
 		base, filename = os.path.split(self.image.path)
