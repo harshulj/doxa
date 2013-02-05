@@ -10,7 +10,7 @@ class UserProfile(models.Model):
 	"""
 		This is a user profile model.
 	"""
-	user = models.ForeignKey(User, unique=True)
+	user = models.OneToOneField(User, unique=True, related_name="profile")
 	short_bio = models.CharField(max_length=100, null=True, blank=True)
 	dob = models.DateField(null=True, blank=True)
 	country = CountryField(null=True, blank=True)
@@ -26,7 +26,7 @@ class ProfilePic(models.Model):
 		Model for a users profile pic.
 	"""
 	image = models.ImageField(upload_to="profilepic/%Y/%b/%d")
-	user = models.ForeignKey(User, unique=True)
+	user = models.OneToOneField(User, unique=True, related_name="profile_pic")
 	valid = models.BooleanField()
 
 	class Meta:
