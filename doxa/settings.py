@@ -42,6 +42,13 @@ PRIVATEBETA_ALWAYS_ALLOW_MODULES = [
         'django.views.static',
 	]
 
+# easy_thumbnails setting
+THUMBNAIL_ALIASES = {
+	'': {
+		'profile_pic': {'size': (50, 50), 'crop': True},
+    },
+}
+THUMBNAIL_DEBUG = True
 
 # Django debuug toolbar settings
 DEBUG_TOOLBAR_PANELS = (
@@ -184,6 +191,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'invitation',
     'privatebeta',
+    'easy_thumbnails',
     'account',
     'userprofile',
 )
