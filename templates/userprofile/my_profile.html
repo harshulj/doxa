@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block content %}
-	I am {{ user.first_name }} {{ user.last_name }}, {{ profile.short_bio }}.
-	<img src="{{ user.profile_pic.image.profile_pic.url }}" alt="" />
+	<div id="profile-container">
+		<img src="{{ user.profile_pic.image.profile_pic.url }}" alt="" />
+		<div id="name">{{ user.first_name }} {{ user.last_name }}</div>
+		<div id="shot-bio">{{ profile.short_bio }}</div>
+	</div>
 {% endblock %}
