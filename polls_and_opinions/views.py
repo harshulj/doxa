@@ -27,10 +27,28 @@ def poll_detail(request, poll_id, template=APP_NAME+"/poll_detail.html"):
     
     close_date = poll.published_on + timedelta(days=poll.duration)
     choices = []
-    for choice in poll.choices:
-        choices.append((choice.text,len(choice.votes.all())))
+    for choice in poll.choices.all():
+        choices.append({
+                        'text' : choice.text,
+                        'votes' : len(choice.votes.all())
+                        })
     return render_to_response(template,{
                                         'poll':poll,
                                         'close_date':close_date,
                                         'choices' : choices,
+                                        },context_instance= RequestContext(request))
+
+
+def poll_list(request, template=APP_NAME+"/polls_list.html"):
+    '''
+    Displays the list of all polls
+    '''
+    polls = []
+    for poll in Poll.objects.all():
+        polls.append({
+                      'poll' : poll,
+                      'votes' : sum([len(choice.votes.all()) for choice in poll.choices.all()]),
+                      })
+    return render_to_response(template,{
+                                        'polls':polls,
                                         },context_instance= RequestContext(request))

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %}
+	Polls
+{% endblock %}
+
+{% block content %}
+	<h2>Polls</h2>
+	<div id="polls_list">
+		<table>
+		{% for poll in polls %}
+			<tr>
+				<td width=400><a href="{% url polls_and_opinions_poll_detail poll_id=poll.poll.id %}">{{ poll.poll }}</a></td><td>{{ poll.votes }}</td>
+			</tr>
+		{% endfor %}
+		</table>			
+	</div>
+{% endblock %}

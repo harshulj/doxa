@@ -2,21 +2,20 @@
 {% load thumbnail %}
 
 {% block title %}
-	{{ poll.__unicode__ }}
+	{{ poll }}
 {% endblock %}
 
 {% block content %}
-	<div id="heading">
-		<h2>{{ poll.question }}</h2>
-	</div>
+	<h2>{{ poll.question }}</h2>
 	<p id="closes_on"><b>Closes on: </b>{{ close_date|date:"Y m d" }}</p>
-	<br/>
-	<table>
-		{% for choice in choices %}
-			<tr>
-				<td>choice.0</td><td>choice.1</td>
-			</tr>
-		{% endfor %}
-	</table>
+	<div id="poll_choices">
+		<table>
+			{% for choice in choices %}
+				<tr>
+					<td>{{ choice.text }}</td><td>{{ choice.votes }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
 	
 {% endblock %}
