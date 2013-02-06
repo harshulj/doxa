@@ -186,6 +186,7 @@ INSTALLED_APPS = (
     'privatebeta',
     'account',
     'userprofile',
+    'polls_and_opinions',
 )
 
 # A sample logging configuration. The only tangible logging
