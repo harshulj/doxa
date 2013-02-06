@@ -1,3 +1,11 @@
+'''
+    Contains all the admin directives for polls_and_opinions
+'''
+
+__author__ = 'Raj Kamal Singh'
+__email__ = 'rkssisodiya@gmail.com'
+__status__ = 'development'
+
 from models import *
 from django.contrib import admin
 from django.contrib.admin.templatetags.admin_list import date_hierarchy
