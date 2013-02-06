@@ -7,6 +7,7 @@ distribute==0.6.28
 dj-database-url==0.2.1
 django-debug-toolbar==0.9.4
 django-registration==0.8
+-e git+ssh://git@github.com/SmileyChris/easy-thumbnails.git@4f5e7552f0e718543b0f06f327718efa3820315d#egg=easy_thumbnails-dev
 gunicorn==0.17.2
 -e git+https://github.com/harshulj/django-privatebeta.git@2b5ddb6ff3c8a8e795b72d42cdfe196e6266072e#egg=privatebeta-dev
 psycopg2==2.4.6
