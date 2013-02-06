@@ -44,7 +44,6 @@ class Opinion(models.Model):
     get_absolute_url = models.permalink(get_absolute_url)    
 
 
-# Create your models here.
 class Poll(models.Model):
     '''
     Represents a poll in Doxa.

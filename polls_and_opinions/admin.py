@@ -26,13 +26,13 @@ class VoteAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_on'
     search_fields = ['voter','choice']
     list_filter = ['voter', 'choice']
-    list_display = ['choice','voter','created_on']
+    list_display = ['__unicode__','created_on']
     
 class OpinionAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_on'
     search_fields = ['author','text']
     list_filter = ['author']
-    list_display = ['__unicode__','author','created_on']
+    list_display = ['__unicode__','author','content_type','content_object','created_on']
     
 admin.site.register(Poll, PollAdmin)
 admin.site.register(Vote,VoteAdmin)

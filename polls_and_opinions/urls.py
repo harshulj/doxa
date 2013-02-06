@@ -15,6 +15,6 @@ poll_info = {'queryset': Poll.objects.all(),
              }
 
 urlpatterns = patterns('',
-                       url(r'^$',object_list,poll_info,name="doxa_polls_poll_list"),
-                       url(r'^(?P<object_id>\d+)$',object_detail,poll_info,name="doxa_polls_poll_detail"),
+                       url(r'^$',object_list,poll_info,name="doxa_polls_and_opinions_poll_list"),
+                       url(r'^(?P<object_id>\d+)$',object_detail,poll_info,name="doxa_polls_and_opinions_poll_detail"),
                        )
