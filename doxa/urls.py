@@ -39,6 +39,7 @@ urlpatterns += patterns('',
     url(r'^accounts/', include('account.reg.backends.doxa.urls')),
     url(r'^accounts/', include('invitation.urls')),
     url(r'^profile/', include('userprofile.urls')),
+    url(r'^polls/', include('polls_and_opinions.urls.polls')),
     url(r'^$', direct_to_template, { 'template': 'index.html'} ),
     url(r'^invite/', include('privatebeta.urls')),
 )

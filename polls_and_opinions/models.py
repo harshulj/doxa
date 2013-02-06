@@ -12,6 +12,8 @@ from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
+APP_NAME = 'polls_and_opinions'
+
 class Opinion(models.Model):
     '''
     A doxa opinion. An opinion is intended to be very generic and is expected to be associated 
@@ -38,7 +40,7 @@ class Opinion(models.Model):
         return truncate_text(self.text,50)
         
     def get_absolute_url(self):
-        return ('doxa_polls_and_opinions_opinion_detail',(),{
+        return (APP_NAME+'_opinion_detail',(),{
                                     'id' : self.id
                                     })
     get_absolute_url = models.permalink(get_absolute_url)    
@@ -68,7 +70,7 @@ class Poll(models.Model):
         return truncate_text(self.question, 50)
     
     def get_absolute_url(self):
-        return ('doxa_polls_and_opinions_poll_detail',(),{
+        return (APP_NAME+'_poll_detail',(),{
                                     'id' : self.id
                                     })
     get_absolute_url = models.permalink(get_absolute_url)    
@@ -101,7 +103,7 @@ class Vote(models.Model):
     '''
     created_on = models.DateTimeField(verbose_name=_("Time of Creation"),auto_now_add=True)
     voter = models.ForeignKey(User)
-    choice = models.ForeignKey(Choice, related_name=_("votes"))
+    choice = models.ForeignKey(Choice, related_name="votes")
     
     def __unicode__(self):
         return "%s voted for %s on - %s" % (self.voter,self.choice, self.choice.poll )
