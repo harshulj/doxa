@@ -45,7 +45,7 @@ PRIVATEBETA_ALWAYS_ALLOW_MODULES = [
 # easy_thumbnails setting
 THUMBNAIL_ALIASES = {
 	'': {
-		'profile_pic': {'size': (50, 50), 'crop': True},
+		'profile_pic': {'size': (150, 150), 'crop': True},
     },
 }
 THUMBNAIL_DEBUG = True
