@@ -29,7 +29,7 @@ class ProfilePic(models.Model):
 	"""
 	image = ThumbnailerImageField(upload_to='profilepic/%Y/%b/%d', blank=True)
 	user = models.OneToOneField(User, related_name="profile_pic")
-	valid = models.BooleanField()
+	valid = models.BooleanField(default=True)
 
 	class Meta:
 		unique_together = (('user', 'valid'),)
