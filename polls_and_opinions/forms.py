@@ -18,8 +18,8 @@ class PollVoteForm(forms.Form):
         The form is dynamically created based on the poll specified.
     '''
     # This field must be initialized with the appropriate poll id whenever it is created.    
-    def __init__(self, poll, *args, **kwargs):
-        super(PollVoteForm,self).__init__(*args,**kwargs)
+    def __init__(self, poll,*args, **kwargs):  
+        super(PollVoteForm,self).__init__(*args,**kwargs)      
         
         # introduce both the poll as a hidden field.
         self.fields['poll_id'] = forms.CharField(widget=forms.HiddenInput)
@@ -32,3 +32,14 @@ class PollVoteForm(forms.Form):
             self.fields['choice'].initial = kwargs['initial']['choice']
         # Get rid of the empty choice ( ------ )
         self.fields['choice'].empty_label = None
+
+def get_poll_vote_form(poll,choice=None):
+    '''
+        Helper method that creates and appropriate PollVoteForm
+        If a valid choice is specified, the choice is put in as the initial
+        value
+    '''
+    if ( not choice is None ) and choice.poll == poll:
+        return PollVoteForm(poll,initial={'choice' : choice})
+    else:
+        return PollVoteForm(poll)
