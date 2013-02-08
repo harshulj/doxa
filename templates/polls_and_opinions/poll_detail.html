@@ -7,7 +7,7 @@
 
 {% block content %}
 	<h2>{{ poll.question }}</h2>
-	<p id="closes_on"><b>Closes on: </b>{{ close_date|date:"Y m d" }}</p>
+	<p id="closes_on"><b>Closes on: </b>{{ close_date|date:"d b Y" }}</p>
 	<div id="poll_choices">
 		<table>
 			{% for choice in choices %}
@@ -18,4 +18,19 @@
 		</table>
 	</div>
 	
+	<div id="poll_opinions">
+		<h4>Opinions</h4>
+		{% for opinion in opinions %}
+		<div class="opinion">
+			<p>
+			{{ opinion.text }}
+			</p>
+			<p>
+			by : {{ opinion.author }}<br/>
+			on {{ opinion.created_on|date:"d b Y" }}
+			</p>
+		</div>
+		{% endfor %}
+	</div>
+
 {% endblock %}
