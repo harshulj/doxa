@@ -19,7 +19,7 @@ from forms import *
 APP_NAME = 'polls_and_opinions'
 
 
-def poll_detail_unauthenticated(request,poll_id):
+def poll_detail_unauthenticated(request,poll_id, template):
     '''
         Returns page for poll and its statistics for an unauthenticated user.
         does not allow voting on the poll, just shows the poll stats
@@ -33,15 +33,16 @@ def poll_detail_unauthenticated(request,poll_id):
                         'text' : choice.text,
                         'votes' : len(choice.votes.all())
                         })    
-    
+     
     return render_to_response(template,{
                                         'poll':poll,
                                         'close_date':close_date,
                                         'choices' : choices,
                                         'opinions' : poll.opinions.all(),
+                                        #'authenticated' : False,
                                         },context_instance= RequestContext(request))
 @login_required
-def poll_detail_authenticated(request,poll_id):
+def poll_detail_authenticated(request,poll_id, template):
     '''
         Returns a page for voting.
     '''
@@ -59,19 +60,20 @@ def poll_detail_authenticated(request,poll_id):
                                         'close_date':close_date,
                                         'vote_form' : vote_form,
                                         'opinions' : poll.opinions.all(),
+                                        #'authenticated' :True,
                                         },context_instance= RequestContext(request))
     
 
 
-def poll_detail(request, poll_id):
+def poll_detail(request, poll_id,template=APP_NAME+"/poll_detail.html"):
     '''
         returns appropriate response depending on whether the user is
         logged in or not.
     '''
     if request.user.is_authenticated():
-        return poll_detail_authenticated(request,poll_id)
+        return poll_detail_authenticated(request,poll_id, template)
     else:
-        return poll_detail_unauthenticated(request, poll_id)
+        return poll_detail_unauthenticated(request, poll_id, template)
 
 def poll_list(request, template=APP_NAME+"/polls_list.html"):
     '''

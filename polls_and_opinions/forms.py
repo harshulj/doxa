@@ -1,6 +1,16 @@
 from django import forms
 from models import *
 
+class PollModelChoiceField(forms.ModelChoiceField):
+    '''
+        Special model choice for the Choice field in the PollVoteForm.
+        This is to enable us to create dynamic labels on the fly for the
+        choice field.
+    '''
+    def label_from_instance(self, obj):
+        return "%s  (%s)"%(obj.__unicode__(),len(obj.votes.all()))
+        
+
 class PollVoteForm(forms.Form):
     '''
         Form for rendering a poll for voting.
@@ -11,10 +21,14 @@ class PollVoteForm(forms.Form):
     def __init__(self, poll, *args, **kwargs):
         super(PollVoteForm,self).__init__(*args,**kwargs)
         
-        # introduce both the poll and the Choices
+        # introduce both the poll as a hidden field.
         self.fields['poll_id'] = forms.CharField(widget=forms.HiddenInput)
         self.fields['poll_id'].initial = poll.id
         
-        self.fields['choice'] = forms.ModelChoiceField(queryset=poll.choices.all(), widget=forms.RadioSelect)
+        # Choices are presented as a choice field in radio select
+        self.fields['choice'] = PollModelChoiceField(label="Choices",queryset=poll.choices.all(), widget=forms.RadioSelect)
+        # If an initial value was specified for the choices
         if kwargs.has_key('initial') and kwargs['initial'].has_key('choice'):
             self.fields['choice'].initial = kwargs['initial']['choice']
+        # Get rid of the empty choice ( ------ )
+        self.fields['choice'].empty_label = None

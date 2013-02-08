@@ -8,6 +8,17 @@
 {% block content %}
 	<h2>{{ poll.question }}</h2>
 	<p id="closes_on"><b>Closes on: </b>{{ close_date|date:"d b Y" }}</p>
+	
+	{% if user.is_authenticated %}
+	<div id="poll_form">
+		<form action="" method="POST">
+			{% csrf_token %}
+			{{ vote_form.as_p }}
+			<input type="submit" value="Vote" />
+		</form>
+	</div>
+
+	{% else %}
 	<div id="poll_choices">
 		<table>
 			{% for choice in choices %}
@@ -17,6 +28,7 @@
 			{% endfor %}
 		</table>
 	</div>
+	{% endif %}
 	
 	<div id="poll_opinions">
 		<h4>Opinions</h4>
