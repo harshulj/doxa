@@ -49,4 +49,22 @@ class OpinionForm(forms.Form):
     '''
     Form for creating an opinion.
     '''
-    pass
+    # The hidden fields to identify the object to which this Opinion is related.
+    # The min_value on these fields is set to 0 coz they are primary keys.
+    object_id = forms.IntegerField(widget=forms.HiddenInput, required=False, min_value=0)
+    content_type_id = forms.IntegerField(widget=forms.HiddenInput, required=False, min_value=0)
+    text = forms.CharField(widget = forms.Textarea, required=False)
+    
+    def __init__(self, *args, **kwargs):
+        '''
+        Overriden init to make sure that either both the object_id and content_type_id are provided
+        when initializing the form or both of them are not provided.
+        '''
+        if kwargs.has_key('initial'):
+            object_id = kwargs['initial'].get('object_id',0)
+            content_type_id = kwargs['initial'].get('content_type_id',0)
+            if bool(object_id) ^ bool(content_type_id):
+               #if one of them is not set while the other is,
+               raise AttributeError("object_id and content_id must both be set or not set.")
+        super(OpinionForm,self).__init__(*args,**kwargs)
+

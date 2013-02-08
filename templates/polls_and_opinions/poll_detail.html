@@ -14,7 +14,7 @@
 		<form action="" method="POST">
 			{% csrf_token %}
 			{{ vote_form.as_p }}
-			<input type="submit" value="Vote" />
+			<input type="submit" name={{ vote_submit_name }} value={{ vote_submit_value}} />
 		</form>
 	</div>
 
@@ -32,6 +32,15 @@
 	
 	<div id="poll_opinions">
 		<h4>Opinions</h4>
+		{% if user.is_authenticated %}
+		<div id="opinion_form">
+			<form action="" method="POST">
+				{% csrf_token %}
+				{{ opinion_form.as_p }}
+				<input type="submit" name={{ opinion_submit_name }} value={{ opinion_submit_value}} />
+			</form>
+		</div>
+		{% endif %}
 		{% for opinion in opinions %}
 		<div class="opinion">
 			<p>

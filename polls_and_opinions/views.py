@@ -12,6 +12,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
 from datetime import datetime,timedelta
+from django.contrib.contenttypes.models import ContentType
 
 from models import *
 from forms import *
@@ -25,8 +26,8 @@ def poll_detail_unauthenticated(request,poll_id, template):
         does not allow voting on the poll, just shows the poll stats
     '''
     poll = get_object_or_404(Poll,id=poll_id)
-    
     close_date = poll.published_on + timedelta(days=poll.duration)
+    
     choices = []
     for choice in poll.choices.all():
         choices.append({
@@ -58,9 +59,22 @@ def poll_detail_authenticated(request,poll_id, template):
     except Vote.DoesNotExist:
         vote = None
         existing_choice = None
+
+    # Get the contenttype for Poll, to be used for the Opinion
+    poll_type = ContentType.objects.get(app_label=APP_NAME,model="Poll")
         
-    # If we are processing a submitted form,
-    if request.method == "POST":
+    VOTE_SUBMIT_NAME = 'submit_vote'
+    VOTE_SUBMIT_VALUE = "Vote"
+    OPINION_SUBMIT_NAME = 'submit_opinion'
+    OPINION_SUBMIT_VALUE = 'Submit'
+
+    # Default form objects. If things have been posted, these variables will get appropriate 
+    # values
+    vote_form = get_poll_vote_form(poll,existing_choice)
+    opinion_form = OpinionForm(initial={'content_type_id':poll_type.id,'object_id':poll.id})
+    
+    # If we are processing a submitted form for a vote
+    if request.method == "POST" and request.POST.get(VOTE_SUBMIT_NAME,'')==VOTE_SUBMIT_VALUE:
         # Poll was posted.
         vote_form =PollVoteForm(poll,data=request.POST)
         # Make sure that the poll submitted in the form and the poll id of this
@@ -83,15 +97,32 @@ def poll_detail_authenticated(request,poll_id, template):
             else:
                 vote = Vote(voter = request.user, choice = choice)
                 vote.save()
-                
-    else:
-        vote_form = get_poll_vote_form(poll,existing_choice)
-    
+
+    # Else if we are processing a form submitted for an opinion
+    elif request.method == "POST" and request.POST.get(OPINION_SUBMIT_NAME,'')==OPINION_SUBMIT_VALUE:
+        opinion_form = OpinionForm(request.POST)
+        is_valid = opinion_form.is_valid() #trigger the cleaning
+        # Make sure that the submitted opinion form was for this poll only
+        # and also that text was actually submitted for the opinion
+        if (not opinion_form.cleaned_data.get('content_type_id','-1') == poll_type.id) \
+        or ( not opinion_form.cleaned_data.get('object_id','-1') == poll.id)\
+        or (not opinion_form.cleaned_data.get('text','')):
+            opinion_form = OpinionForm(initial={'content_type_id':poll_type.id,'object_id':poll.id})
+        elif is_valid:
+            # If the form is valid, then save the opinion to the database.
+            text = opinion_form.cleaned_data['text']
+            op = Opinion(author=request.user,text=text,content_type=poll_type,object_id=poll.id)
+            op.save()
     return render_to_response(template,{
                                         'poll':poll,
                                         'close_date':close_date,
                                         'vote_form' : vote_form,
                                         'opinions' : poll.opinions.all(),
+                                        'vote_submit_value' : VOTE_SUBMIT_VALUE,
+                                        'vote_submit_name' : VOTE_SUBMIT_NAME,
+                                        'opinion_submit_value' : OPINION_SUBMIT_VALUE,
+                                        'opinion_submit_name' : OPINION_SUBMIT_NAME,
+                                        'opinion_form' : opinion_form,
                                         #'authenticated' :True,
                                         },context_instance= RequestContext(request))
     
