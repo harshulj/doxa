@@ -9,7 +9,6 @@ __status__ = 'development'
 from django.conf.urls.defaults import *
 from polls_and_opinions.models import *
 from polls_and_opinions.views import *
-from django.views.generic.list_detail import object_detail, object_list
 
 APP_NAME = 'polls_and_opinions'
 

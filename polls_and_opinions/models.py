@@ -29,9 +29,22 @@ class Opinion(models.Model):
     # the names for the variables should not be changed, the defaults have been used here.
     # if non-default names are used,they will have to be mentioned in the models
     # that include a reverse generic relation to this model.
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
+    # An opinion may and may not be associated with an object, hence the contenttype and object id can be null
+    content_type = models.ForeignKey(ContentType, blank=True, null = True)
+    object_id = models.PositiveIntegerField(blank=True, null=True)
     content_object = generic.GenericForeignKey('content_type','object_id')
+    
+    def clean(self):
+        '''
+            custom clean method to make sure that the content_type and object_id 
+            both either have values or both are None
+        '''
+        from django.core.exceptions import ValidationError
+        if bool(self.content_type) ^ bool(self.object_id):
+            raise ValidationError("content_type and object_id must either both be set or both unset,\
+                    content_type has value %s and \n\
+                    object_id has value %s"%(self.content_type,self.object_id))
+        
     
     class Meta:
         ordering = ['-created_on']

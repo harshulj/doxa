@@ -43,3 +43,10 @@ def get_poll_vote_form(poll,choice=None):
         return PollVoteForm(poll,initial={'choice' : choice})
     else:
         return PollVoteForm(poll)
+    
+    
+class OpinionForm(forms.Form):
+    '''
+    Form for creating an opinion.
+    '''
+    pass
