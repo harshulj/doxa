@@ -1,6 +1,7 @@
 <div id="header">
     <ul class="head-nav">
         <li class="head-nav-link"><a href="/">Doxa</a></li>
+        <li class="head-nav-link"><a href="{% url polls_and_opinions_polls_list %}">Polls</a></li>
         {% if user.is_authenticated %}
         <li class="dropdown head-nav-link right">
             <a class="dropdown-toggle" href="">Account</a>
