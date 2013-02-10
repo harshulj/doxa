@@ -18,5 +18,5 @@ poll_info = {'queryset': Poll.objects.all(),
 
 urlpatterns = patterns('',
                        url(r'^$',poll_list,name=APP_NAME+"_polls_list"),
-                       url(r'^(?P<poll_id>\d+)$',poll_detail,name=APP_NAME+"_poll_detail"),
+                       url(r'^(?P<id>\d+)$',poll_detail,name=APP_NAME+"_poll_detail"),
                        )

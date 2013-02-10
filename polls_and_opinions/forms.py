@@ -26,7 +26,7 @@ class PollVoteForm(forms.Form):
         self.fields['poll_id'].initial = poll.id
         
         # Choices are presented as a choice field in radio select
-        self.fields['choice'] = PollModelChoiceField(label="Choices",queryset=poll.choices.all(), widget=forms.RadioSelect)
+        self.fields['choice'] = PollModelChoiceField(label="Choices",queryset=poll.choices.prefetch_related('votes').all(), widget=forms.RadioSelect)
         # If an initial value was specified for the choices
         if kwargs.has_key('initial') and kwargs['initial'].has_key('choice'):
             self.fields['choice'].initial = kwargs['initial']['choice']

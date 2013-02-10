@@ -84,6 +84,11 @@ DATABASES = {
     }
 }
 
+# settings for 3rd party apps migrations
+SOUTH_MIGRATION_MODULES = {
+    'tagging': 'migrations_other_apps.tagging',
+}
+
 
 INTERNAL_IPS = ('127.0.0.1',)
 

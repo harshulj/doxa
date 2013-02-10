@@ -20,12 +20,23 @@ from forms import *
 APP_NAME = 'polls_and_opinions'
 
 
+#Helper method to do get_object_or_404 for polls with db optimization
+def get_poll_or_404(poll_id):
+    '''
+    Does a select related query for Poll and returns 404 if not found.
+    '''
+    try:
+        poll = Poll.objects.prefetch_related('opinions').get(id=poll_id)
+    except Poll.DoesNotExist:
+        raise Http404
+    return poll
+
 def poll_detail_unauthenticated(request,poll_id, template):
     '''
         Returns page for poll and its statistics for an unauthenticated user.
         does not allow voting on the poll, just shows the poll stats
     '''
-    poll = get_object_or_404(Poll,id=poll_id)
+    poll = get_poll_or_404(poll_id)
     close_date = poll.published_on + timedelta(days=poll.duration)
     
     choices = []
@@ -50,11 +61,11 @@ def poll_detail_authenticated(request,poll_id, template):
     '''
         Returns a page for voting.
     '''
-    poll = get_object_or_404(Poll,id=poll_id)
+    poll = get_poll_or_404(poll_id)
     close_date = poll.published_on + timedelta(days=poll.duration)
     # See if a vote exists for this poll for the current user.
     try:
-        vote = Vote.objects.get(voter=request.user,choice__poll=poll)
+        vote = Vote.objects.select_related().get(voter=request.user,choice__poll=poll)
         existing_choice = vote.choice
     except Vote.DoesNotExist:
         vote = None
@@ -128,15 +139,15 @@ def poll_detail_authenticated(request,poll_id, template):
     
 
 
-def poll_detail(request, poll_id,template=APP_NAME+"/poll_detail.html"):
+def poll_detail(request, id,template=APP_NAME+"/poll_detail.html"):
     '''
         returns appropriate response depending on whether the user is
         logged in or not.
     '''
     if request.user.is_authenticated():
-        return poll_detail_authenticated(request,poll_id, template)
+        return poll_detail_authenticated(request,id, template)
     else:
-        return poll_detail_unauthenticated(request, poll_id, template)
+        return poll_detail_unauthenticated(request, id, template)
 
 def poll_list(request, template=APP_NAME+"/polls_list.html"):
     '''
