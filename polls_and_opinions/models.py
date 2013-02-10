@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+import tagging
+from tagging.models import TaggedItem
 
 APP_NAME = 'polls_and_opinions'
 
@@ -22,6 +24,9 @@ class Opinion(models.Model):
     created_on = models.DateTimeField(verbose_name=_("Time of Creation"),auto_now_add=True)
     author = models.ForeignKey(User)
     text = models.TextField()
+    
+    #Tags for this opinion based on the generic django-tagging application
+    tags = tagging.fields.TagField()
     
     # Since an opinion can be associated with a variety of stuff, not just polls,
     # contenttypes framework is used here for generic relations
@@ -78,6 +83,9 @@ class Poll(models.Model):
     author = models.ForeignKey(User)
     # opinions can be associated with polls.
     opinions = generic.GenericRelation(Opinion)
+    
+    # tags for this poll
+    tags = tagging.fields.TagField()
     
     def __unicode__(self):
         return truncate_text(self.question, 50)
@@ -144,3 +152,17 @@ def truncate_text(text, max_length):
         return text[:max_length-4]+"... "
     else:
         return text
+    
+# Helper methods to retrieve polls and opinions by tags.
+def get_opinions_for_tags(tags):
+    '''
+    Returns all the opinions for the supplied tags
+    The tags are expected to be in a string - either space separated or comma separated
+    '''
+    return TaggedItem.objects.get(Opinion,tags)
+def get_polls_for_tags(tags):
+    '''
+    Returns all the polls for the supplied tags
+    The tags are expected to be in a string - either space separated or comma separated
+    '''    
+    return TaggedItem.objects.get(Poll,tags)

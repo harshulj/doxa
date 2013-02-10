@@ -200,6 +200,7 @@ INSTALLED_APPS = (
     'account',
     'userprofile',
     'polls_and_opinions',
+    'tagging',
 )
 
 # A sample logging configuration. The only tangible logging
