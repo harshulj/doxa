@@ -42,6 +42,7 @@ urlpatterns += patterns('',
     url(r'^polls/', include('polls_and_opinions.urls.polls')),
     url(r'^$', direct_to_template, { 'template': 'index.html'} ),
     url(r'^invite/', include('privatebeta.urls')),
+    url(r'^search/', include('haystack.urls')),
 )
 
 if settings.DEBUG:
