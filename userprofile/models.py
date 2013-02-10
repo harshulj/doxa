@@ -27,6 +27,7 @@ class UserProfile(models.Model):
 
 	def get_absolute_url(self):
 		return (APP_NAME+"_my_profile", (), { 'id':self.id})
+	get_absolute_url = models.permalink(get_absolute_url)
 
 class ProfilePic(models.Model):
 	"""
