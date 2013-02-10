@@ -16,6 +16,10 @@ MANAGERS = ADMINS
 
 LOGIN_REDIRECT_URL = '/'
 
+# Haystack settings
+HAYSTACK_SITECONF = 'doxa.search_sites'
+HAYSTACK_SEARCH_ENGINE = 'simple'
+
 # django-registration settings
 ACCOUNT_ACTIVATION_DAYS=7
 EMAIL_HOST = 'localhost'
@@ -192,6 +196,7 @@ INSTALLED_APPS = (
     'invitation',
     'privatebeta',
     'easy_thumbnails',
+    'haystack',
     'account',
     'userprofile',
     'polls_and_opinions',
