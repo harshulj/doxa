@@ -8,6 +8,8 @@ import os
 
 GENDER_CHOICES = ( ('F', _('Female')), ('M', _('Male')),)
 
+APP_NAME = "userprofile"
+
 class UserProfile(models.Model):
 	"""
 		This is a user profile model.
@@ -22,6 +24,9 @@ class UserProfile(models.Model):
 
 	def __unicode__(self):
 		return _("%s %s's profile") % (self.user.first_name, self.user.last_name)
+
+	def get_absolute_url(self):
+		return (APP_NAME+"_my_profile", (), { 'id':self.id})
 
 class ProfilePic(models.Model):
 	"""
