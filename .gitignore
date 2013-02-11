@@ -4,6 +4,7 @@ env/
 *.so
 static/
 media/
+woosh_index/
 # Packages
 *.egg
 *.egg-info

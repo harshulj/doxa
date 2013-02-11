@@ -18,7 +18,8 @@ LOGIN_REDIRECT_URL = '/'
 
 # Haystack settings
 HAYSTACK_SITECONF = 'doxa.search_sites'
-HAYSTACK_SEARCH_ENGINE = 'simple'
+HAYSTACK_SEARCH_ENGINE = 'whoosh'
+HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_PATH,'woosh_index')
 
 # django-registration settings
 ACCOUNT_ACTIVATION_DAYS=7
