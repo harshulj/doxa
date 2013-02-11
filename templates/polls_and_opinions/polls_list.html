@@ -11,7 +11,7 @@
 		<table>
 		{% for poll in polls %}
 			<tr>
-				<td width=400><a href="{% url polls_and_opinions_poll_detail poll_id=poll.poll.id %}">{{ poll.poll }}</a></td><td>{{ poll.votes }}</td>
+				<td width=400><a href="{% url polls_and_opinions_poll_detail id=poll.poll.id %}">{{ poll.poll }}</a></td><td>{{ poll.votes }}</td>
 			</tr>
 		{% endfor %}
 		</table>			

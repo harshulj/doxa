@@ -1,5 +1,6 @@
 from django import forms
 from models import *
+from django.forms import ModelForm
 
 class PollModelChoiceField(forms.ModelChoiceField):
     '''
@@ -68,3 +69,18 @@ class OpinionForm(forms.Form):
                raise AttributeError("object_id and content_id must both be set or not set.")
         super(OpinionForm,self).__init__(*args,**kwargs)
 
+
+class PollForm(ModelForm):
+    class Meta:
+        model = Poll
+        exclude = ('author')
+        widgets = {
+                   'questions' : forms.Textarea(attrs={'cols':80,'rows':10}),
+                   }
+        
+class ChoiceForm(ModelForm):
+    '''
+    Basic form for collecting text of a choice. Not meant to be used on its own
+    but with a form for the associated Poll
+    '''
+    text = forms.CharField(max_length=100)

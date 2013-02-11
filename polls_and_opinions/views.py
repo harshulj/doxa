@@ -154,7 +154,7 @@ def poll_list(request, template=APP_NAME+"/polls_list.html"):
     Displays the list of all polls
     '''
     polls = []
-    for poll in Poll.objects.all():
+    for poll in Poll.objects.prefetch_related('choices__votes').all():
         polls.append({
                       'poll' : poll,
                       'votes' : sum([len(choice.votes.all()) for choice in poll.choices.all()]),
@@ -162,3 +162,10 @@ def poll_list(request, template=APP_NAME+"/polls_list.html"):
     return render_to_response(template,{
                                         'polls':polls,
                                         },context_instance= RequestContext(request))
+
+@login_required
+def create_poll(request):
+    '''
+    View for allowing a user to create a poll and to also add choices to it.
+    '''
+    
