@@ -19,14 +19,25 @@
         </table>
 
         {% if query %}
-            <h3>Results</h3>
-
+            <h3>Polls</h3>
             {% for result in page.object_list %}
                 <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.text }}</a>
+                	{% ifequal result.model_name "poll" %}
+                    	<a href="{{ result.object.get_absolute_url }}">{{ result.object.question }}</a>
+                    {% endifequal %}
                 </p>
             {% empty %}
-                <p>No results found.</p>
+                <p>No Polls found.</p>
+            {% endfor %}
+            <h3>Opinions</h3>
+            {% for result in page.object_list %}
+                <p>
+                	{% ifequal result.model_name "opinion" %}
+                    	<a href="{{ result.object.get_absolute_url }}">{{ result.object.text }}</a>
+                    {% endifequal %}
+                </p>
+            {% empty %}
+                <p>No Opinions found.</p>
             {% endfor %}
 
             {% if page.has_previous or page.has_next %}
