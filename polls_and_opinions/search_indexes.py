@@ -1,4 +1,3 @@
-import datetime
 from django.utils.timezone import now
 from haystack.indexes import *
 from haystack import site
