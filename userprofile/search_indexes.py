@@ -3,7 +3,7 @@ from haystack import site
 from haystack.indexes import *
 from userprofile.models import UserProfile
 
-class UserProfileIndex(SearchIndex):
+class UserProfileIndex(RealTimeSearchIndex):
 	text = CharField(document=True, use_template=True)
 	user = CharField(model_attr='user')
 	

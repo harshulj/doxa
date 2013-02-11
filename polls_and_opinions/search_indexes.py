@@ -4,7 +4,7 @@ from haystack import site
 from haystack import indexes
 from polls_and_opinions.models import Opinion, Poll
 
-class OpinionIndex(SearchIndex):
+class OpinionIndex(RealTimeSearchIndex):
 	"""
 		Search Index for Opinion model.
 	"""
@@ -15,7 +15,7 @@ class OpinionIndex(SearchIndex):
 	def index_queryset(self):
 		return Opinion.objects.filter(created_on__lte=now())
 
-class PollIndex(SearchIndex):
+class PollIndex(RealTimeSearchIndex):
 	"""
 		Search Index for Poll model.
 	"""
