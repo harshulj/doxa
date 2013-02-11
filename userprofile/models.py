@@ -4,7 +4,6 @@ from django.utils.translation import ugettext as _
 
 from easy_thumbnails.fields import ThumbnailerImageField
 from userprofile.countries import CountryField
-import os
 
 GENDER_CHOICES = ( ('F', _('Female')), ('M', _('Male')),)
 
@@ -28,7 +27,7 @@ class UserProfile(models.Model):
 
 
 	def __unicode__(self):
-		return _("%s %s's profile") % (self.user.first_name, self.user.last_name)
+		return this.name
 
 	def get_absolute_url(self):
 		return (APP_NAME+"_profile", (), { 'id':self.id})
