@@ -22,11 +22,16 @@ class UserProfile(models.Model):
 	url = models.URLField(max_length=70, null=True, blank=True)
 	about = models.TextField(max_length=200, null=True, blank=True)
 
+	@property
+	def name(self):
+		return _("%s %s") %( self.user.first_name, self.user.last_name)
+
+
 	def __unicode__(self):
 		return _("%s %s's profile") % (self.user.first_name, self.user.last_name)
 
 	def get_absolute_url(self):
-		return (APP_NAME+"_my_profile", (), { 'id':self.id})
+		return (APP_NAME+"_profile", (), { 'id':self.id})
 	get_absolute_url = models.permalink(get_absolute_url)
 
 class ProfilePic(models.Model):
