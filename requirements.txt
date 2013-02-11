@@ -6,6 +6,7 @@ Whoosh==2.5.0
 argparse==1.2.1
 distribute==0.6.28
 dj-database-url==0.2.1
+-e git+ssh://git@github.com/justquick/django-activity-stream.git@36f0bba25b6c9e9593a1179c2f1feeea58c39d1c#egg=django_activity_stream-dev
 django-debug-toolbar==0.9.4
 django-haystack==1.2.7
 django-registration==0.8
