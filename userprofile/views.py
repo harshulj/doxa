@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
@@ -7,6 +8,16 @@ from django.shortcuts import render
 
 from userprofile.models import UserProfile, ProfilePic
 from userprofile.forms import UserProfileForm, ProfilePicForm
+
+
+@login_required
+def user_profile(request, username, template="userprofile/user_profile.html"):
+	"""
+		This function shows the profile of a user to anyother user.
+	"""
+	user =get_object_or_404(User, username=username)
+	return render_to_response(template, {'user':user}, context_instance=RequestContext(request))
+
 
 @login_required
 def my_profile(request, template="userprofile/my_profile.html"):
