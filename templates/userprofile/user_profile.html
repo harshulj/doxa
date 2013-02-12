@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block title %}
+	{{ user.first_name }} {{ user.last_name }}
+{% endblock %}
+
+{% block content %}
+	<div id="profile-container">
+		<img src="{{ user.profile_pic.image.profile_pic.url }}" alt="" />
+		<div id="name">{{ user.first_name }} {{ user.last_name }}</div>
+		<a href="{{ user.profile.get_absolute_url }}">My Profile</a>
+		<div id="shot-bio">{{ user.profile.short_bio }}</div>
+		<div id="dob">{{ user.profile.dob }}</div>
+		<div id="gender">{{ user.profile.gender }}</div>
+		<div id="url"><a href="{{ user.profile.url }}">{{ user.profile.url }}</a></div>
+		<div id="about">{{ user.profile.about }}</div>
+	</div>
+{% endblock %}
