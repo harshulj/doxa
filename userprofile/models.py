@@ -46,3 +46,13 @@ class ProfilePic(models.Model):
 
 	def __unicode__(self):
 		return _("%s %s's Profile Pic") % (self.user.first_name , self.user.last_name)
+
+
+from registration.signals import user_activated
+
+def create_userprofile(sender, user, request, **kwargs):
+	profile = UserProfile.objects.create(user=user)
+	profile_pic = ProfilePic.objects.create(user=user)
+
+user_activated.connect(create_userprofile)
+
