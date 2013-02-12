@@ -26,8 +26,6 @@
                     	<a href="{{ result.object.get_absolute_url }}">{{ result.object.question }}</a>
                     {% endifequal %}
                 </p>
-            {% empty %}
-                <p>No Polls found.</p>
             {% endfor %}
             <h3>Opinions</h3>
             {% for result in page.object_list %}
@@ -36,8 +34,6 @@
                     	<a href="{{ result.object.get_absolute_url }}">{{ result.object.text }}</a>
                     {% endifequal %}
                 </p>
-            {% empty %}
-                <p>No Opinions found.</p>
             {% endfor %}
             <h3>Users</h3>
             {% for result in page.object_list %}
@@ -46,8 +42,6 @@
                     	<a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a>
                     {% endifequal %}
                 </p>
-            {% empty %}
-                <p>No Opinions found.</p>
             {% endfor %}
             {% if page.has_previous or page.has_next %}
                 <div>
