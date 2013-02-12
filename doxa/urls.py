@@ -30,15 +30,11 @@ else:
     )
 
 urlpatterns += patterns('',
-    # Examples:
-    # url(r'^$', 'doxa.views.home', name='home'),
-    # url(r'^doxa/', include('doxa.foo.urls')),
-
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('account.reg.backends.doxa.urls')),
     url(r'^accounts/', include('invitation.urls')),
-    url(r'^profile/', include('userprofile.urls')),
+    url(r'', include('userprofile.urls')),
     url(r'^polls/', include('polls_and_opinions.urls.polls')),
     url(r'^$', direct_to_template, { 'template': 'index.html'} ),
     url(r'^invite/', include('privatebeta.urls')),
