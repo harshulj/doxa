@@ -27,7 +27,7 @@ class UserProfile(models.Model):
 
 
 	def __unicode__(self):
-		return this.name
+		return self.name
 
 	def get_absolute_url(self):
 		return (APP_NAME+"_profile", (), { 'username':self.user.username})
