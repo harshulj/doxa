@@ -49,10 +49,11 @@ class ProfilePic(models.Model):
 
 
 from registration.signals import user_activated
+from social_auth.signals import socialauth_registered
 
 def create_userprofile(sender, user, request, **kwargs):
 	profile = UserProfile.objects.create(user=user)
 	profile_pic = ProfilePic.objects.create(user=user)
 
 user_activated.connect(create_userprofile)
-
+socialauth_registered.connect(create_userprofile)

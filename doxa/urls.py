@@ -39,6 +39,7 @@ urlpatterns += patterns('',
     url(r'^$', direct_to_template, { 'template': 'index.html'} ),
     url(r'^invite/', include('privatebeta.urls')),
     url(r'^search/', include('haystack.urls')),
+    url(r'accounts/', include('social_auth.urls')),
 )
 
 if settings.DEBUG:
