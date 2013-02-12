@@ -1,11 +1,11 @@
 '''
     Models for polls_and_opinions app
 '''
+from django.core.context_processors import request
 
 __author__ = 'Raj Kamal Singh'
 __email__ = 'rkssisodiya@gmail.com'
 __status__ = 'development'
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext as _
@@ -13,7 +13,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 import tagging
 from tagging.models import TaggedItem
-
+from djangoratings.fields import RatingField
 APP_NAME = 'polls_and_opinions'
 
 class Opinion(models.Model):
@@ -38,6 +38,37 @@ class Opinion(models.Model):
     content_type = models.ForeignKey(ContentType, blank=True, null = True)
     object_id = models.PositiveIntegerField(blank=True, null=True)
     content_object = generic.GenericForeignKey('content_type','object_id')
+    
+    # Rating field for rating of opinions. For now, opinions will be either have an upvote or
+    # a downvote. so the separate property for upvote, downvote will be based on that.
+    # if rating is not set, then vote is 0, if rating is 1, vote is -1 (downvote) else
+    # if rating is 2, vote is +1 (upvote)
+    __rating = RatingField(range=2, can_change_vote=True, allow_delete=True)
+
+    # The Vote property of the Opinion is the one to be used    
+    def _get_vote(self):
+        if self.__rating is None:
+            return 0
+        elif self.__rating == 1:
+            return -1
+        else:
+            return 1
+
+    def _set_vote(self,vote_request):
+        vote,request = vote_request
+        if vote < -1 or vote > 1:
+            raise ValueError("An opinion vote must be either 0(no vote),-1(downvote) or 1(upvote)")
+        rating = self.__rating.get_rating_for_user(request.user)
+        if (not rating is None):
+            self.__rating.delete(request.user,request.META['REMOTE_ADDR'])
+        if not vote ==0:
+            if vote == -1:
+                val = 1
+            else:
+                val = 2
+            self.__rating.add(score=val, user=request.user, ip_address=request.META['REMOTE_ADDR'])
+
+    vote = property(_get_vote,_set_vote)
     
     def clean(self):
         '''
@@ -87,6 +118,9 @@ class Poll(models.Model):
     # tags for this poll
     tags = tagging.fields.TagField()
     
+    # Ratings of polls can go from 1 to 5
+    rating = RatingField(range=5, can_change_vote=True, allow_delete=True)
+    
     def __unicode__(self):
         return truncate_text(self.question, 50)
     
@@ -114,6 +148,9 @@ class Choice(models.Model):
     
     #All choices submitted by users maynot be deemed appropriate by the poll author
     is_approved = models.BooleanField(verbose_name=_("Approved"),default = False)
+    
+    # Ratings of polls can go from 1 to 5
+    rating = RatingField(range=5, can_change_vote=True, allow_delete=True)    
     
     def __unicode__(self):
         return truncate_text(self.text, 50)

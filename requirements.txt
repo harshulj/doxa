@@ -3,7 +3,11 @@ MySQL-python==1.2.4b4
 PIL==1.1.7
 South==0.7.6
 Whoosh==2.5.0
+amqp==1.0.8
+anyjson==0.3.3
 argparse==1.2.1
+billiard==2.7.3.21
+celery==3.0.15
 distribute==0.6.28
 dj-database-url==0.2.1
 -e git+ssh://git@github.com/justquick/django-activity-stream.git@36f0bba25b6c9e9593a1179c2f1feeea58c39d1c#egg=django_activity_stream-dev
@@ -11,6 +15,7 @@ django-debug-toolbar==0.9.4
 -e git+ssh://git@github.com/caffeinehit/django-follow.git@765a4795e58f57fbf96efdb7838d0c7222db2e56#egg=django_follow-dev
 django-haystack==1.2.7
 django-ratings==0.3.7
+django-recommends==0.0.11
 django-registration==0.8
 django-social-auth==0.7.19
 django-tagging==0.3.1
@@ -21,4 +26,8 @@ oauth2==1.5.211
 -e git+https://github.com/harshulj/django-privatebeta.git@2b5ddb6ff3c8a8e795b72d42cdfe196e6266072e#egg=privatebeta-dev
 psycopg2==2.4.6
 python-openid==2.2.5
+importlib==1.0.2
+kombu==2.5.6
+ordereddict==1.1
+python-dateutil==1.5
 wsgiref==0.1.2
