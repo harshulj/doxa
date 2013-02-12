@@ -88,6 +88,7 @@ DATABASES = {
 # settings for 3rd party apps migrations
 SOUTH_MIGRATION_MODULES = {
     'tagging': 'migrations_other_apps.tagging',
+    'djangoratings': 'migrations_other_apps.djangoratings',
 }
 
 
@@ -207,6 +208,7 @@ INSTALLED_APPS = (
     'userprofile',
     'polls_and_opinions',
     'tagging',
+    'djangoratings',
 )
 
 # A sample logging configuration. The only tangible logging
