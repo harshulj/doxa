@@ -10,6 +10,7 @@ dj-database-url==0.2.1
 django-debug-toolbar==0.9.4
 -e git+ssh://git@github.com/caffeinehit/django-follow.git@765a4795e58f57fbf96efdb7838d0c7222db2e56#egg=django_follow-dev
 django-haystack==1.2.7
+django-ratings==0.3.7
 django-registration==0.8
 django-tagging==0.3.1
 -e git+ssh://git@github.com/SmileyChris/easy-thumbnails.git@4f5e7552f0e718543b0f06f327718efa3820315d#egg=easy_thumbnails-dev
