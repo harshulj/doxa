@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^invite/', include('privatebeta.urls')),
     url(r'^search/', include('haystack.urls')),
     url(r'account/', include('social_auth.urls')),
+    url(r'relation/', include('follow.urls')),
 )
 
 if settings.DEBUG:
