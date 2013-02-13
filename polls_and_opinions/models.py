@@ -14,6 +14,10 @@ from django.contrib.contenttypes import generic
 import tagging
 from tagging.models import TaggedItem
 from djangoratings.fields import RatingField
+from recommends.providers import recommendation_registry, RecommendationProvider
+from django.contrib.sites.models import Site
+from django.contrib.auth.models import User
+
 APP_NAME = 'polls_and_opinions'
 
 class Opinion(models.Model):
@@ -197,9 +201,32 @@ def get_opinions_for_tags(tags):
     The tags are expected to be in a string - either space separated or comma separated
     '''
     return TaggedItem.objects.get(Opinion,tags)
+
 def get_polls_for_tags(tags):
     '''
     Returns all the polls for the supplied tags
     The tags are expected to be in a string - either space separated or comma separated
     '''    
     return TaggedItem.objects.get(Poll,tags)
+
+# Recommendation provider for polls.
+class PollRecommendationProvider(RecommendationProvider):
+    def get_users(self):
+        return User.objects.filter(is_active=True, votes__isnull=False).distinct()
+
+    def get_items(self):
+        return Poll.objects.all()
+
+    def get_ratings(self, obj):
+        return obj.rating.get_ratings()
+
+    def get_rating_score(self, rating):
+        return rating.score
+
+    def get_rating_user(self, rating):
+        return rating.user
+
+    def get_rating_item(self, rating):
+        return rating.content_object
+
+recommendation_registry.register(Vote, [Poll], PollRecommendationProvider)
