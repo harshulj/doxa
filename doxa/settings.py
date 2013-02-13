@@ -107,7 +107,9 @@ DATABASES = {
 SOUTH_MIGRATION_MODULES = {
     'tagging': 'migrations_other_apps.tagging',
     'djangoratings': 'migrations_other_apps.djangoratings',
-	'social-auth': 'migrations_other_apps.social_auth',
+    #'recommends': 'migration_other_apps.recommends',
+    #'recommends.storages.djangoorm': 'migration_other_apps.recommends_storages_djangoorm',
+    'social-auth': 'migrations_other_apps.social_auth',
 }
 
 
@@ -242,6 +244,8 @@ INSTALLED_APPS = (
     'polls_and_opinions',
     'tagging',
     'djangoratings',
+    'recommends',
+    'recommends.storages.djangoorm',
 )
 
 # A sample logging configuration. The only tangible logging
