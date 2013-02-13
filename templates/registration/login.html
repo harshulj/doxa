@@ -16,4 +16,5 @@
 
 <p>{% trans "Forgot password" %}? <a href="{% url auth_password_reset %}">{% trans "Reset it" %}</a>!</p>
 <p>{% trans "Not member" %}? <a href="{% url registration_register %}">{% trans "Register" %}</a>!</p>
+<p><a href="{% url socialauth_begin 'twitter' %}?{{ redirect_querystring }}">Login via Twitter</a></p>
 {% endblock %}

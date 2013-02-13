@@ -16,6 +16,9 @@ MANAGERS = ADMINS
 
 LOGIN_REDIRECT_URL = '/'
 
+# Profile Model profile can be accessed via user.get_profile()
+AUTH_PROFILE_MODULE = "userprofile.UserProfile"
+
 # Haystack settings
 HAYSTACK_SITECONF = 'doxa.search_sites'
 HAYSTACK_SEARCH_ENGINE = 'whoosh'
@@ -74,6 +77,21 @@ DEBUG_TOOLBAR_CONFIG = {
     'TAG': 'div',
 }
 
+# Social Auth Settings
+SOCIAL_AUTH_CREATE_USERS = True  # To disable user creating using social auth
+AUTHENTICATION_BACKENDS = (
+    'social_auth.backends.twitter.TwitterBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    )
+
+LOGIN_URL          = '/accounts/login/'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/profile/edit/'
+
+# for twitter
+TWITTER_CONSUMER_KEY         = 'qcHPSRCbBR6VGtn0jQlBJw'
+TWITTER_CONSUMER_SECRET      = 'tPNM5tAr057ozA7MHaGmVGMLF54BfnUbrXw0IA1Lc'
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -91,6 +109,7 @@ SOUTH_MIGRATION_MODULES = {
     'djangoratings': 'migrations_other_apps.djangoratings',
     #'recommends': 'migration_other_apps.recommends',
     #'recommends.storages.djangoorm': 'migration_other_apps.recommends_storages_djangoorm',
+    'social-auth': 'migrations_other_apps.social_auth',
 }
 
 
@@ -161,6 +180,19 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+TEMPLATE_CONTEXT_PROCESSORS = (
+	"django.core.context_processors.debug",
+	"django.core.context_processors.i18n",
+	"django.core.context_processors.media",
+	"django.core.context_processors.static",
+	"django.core.context_processors.tz",
+	"django.contrib.messages.context_processors.messages",
+	'django.contrib.auth.context_processors.auth',
+    'social_auth.context_processors.social_auth_by_name_backends',
+    'social_auth.context_processors.social_auth_backends',
+    'social_auth.context_processors.social_auth_by_type_backends',
+    'social_auth.context_processors.social_auth_login_redirect',
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -172,7 +204,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'privatebeta.middleware.PrivateBetaMiddleware',
+    #'privatebeta.middleware.PrivateBetaMiddleware',
 )
 
 ROOT_URLCONF = 'doxa.urls'
@@ -206,6 +238,7 @@ INSTALLED_APPS = (
     'privatebeta',
     'easy_thumbnails',
     'haystack',
+    'social_auth',
     'account',
     'userprofile',
     'polls_and_opinions',
