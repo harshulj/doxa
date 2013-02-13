@@ -9,7 +9,7 @@
 	<div id="profile-container">
 		<img src="{{ user.profile_pic.image.profile_pic.url }}" alt="" />
 		<div id="name">{{ user.first_name }} {{ user.last_name }}</div>
-		<a href="{{ user.profile.get_absolute_url }}">My Profile</a>
+		<a href="{% url userprofile_user_profile user.username %}">My Profile</a>
 		<div id="shot-bio">{{ user.profile.short_bio }}</div>
 		<div id="dob">{{ user.profile.dob }}</div>
 		<div id="gender">{{ user.profile.gender }}</div>
