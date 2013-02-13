@@ -22,6 +22,8 @@
 			<input type="submit" value="Follow"/>
 		{% endif_relationship %}
 		<br/><a href="{% url userprofile_user_profile profile.user.username %}">My Profile</a>
+		<div id="followers"><a href="{% url relationship_list profile.user.username "followers"%}">Followers</a></div>
+		<div id="following"><a href="{% url relationship_list profile.user.username "following"%}">Following</a></div>
 		<div id="shot-bio">{{ profile.short_bio }}</div>
 		<div id="dob">{{ profile.dob }}</div>
 		<div id="gender">{{ profile.gender }}</div>
