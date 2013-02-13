@@ -2,6 +2,6 @@
 
 {% block content %}
   {% for user in relationship_list %}
-    <p>{{ user.username }}</p>
+    <a href="{% url userprofile_user_profile user.username%}">{{ user.get_full_name }}</a><br/>
   {% endfor %}
 {% endblock %}
