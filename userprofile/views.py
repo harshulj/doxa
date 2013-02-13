@@ -19,7 +19,7 @@ def user_profile(request, username, template="userprofile/user_profile.html"):
 		user =get_object_or_404(User, username=username)
 	else:
 		user = request.user
-	return render_to_response(template, {'user':user}, context_instance=RequestContext(request))
+	return render_to_response(template, {'profile':user.profile, 'profile_pic':user.profile_pic}, context_instance=RequestContext(request))
 
 @login_required
 def edit_profile(request, template="userprofile/edit_profile.html"):
