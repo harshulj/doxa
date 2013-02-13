@@ -1,19 +1,31 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load relationship_tags %}
 
 {% block title %}
-	{{ user.first_name }} {{ user.last_name }}
+	{{ profile.name }}
 {% endblock %}
 
 {% block content %}
+	{{ request.user }}
 	<div id="profile-container">
-		<img src="{{ user.profile_pic.image.profile_pic.url }}" alt="" />
-		<div id="name">{{ user.first_name }} {{ user.last_name }}</div>
-		<a href="{% url userprofile_user_profile user.username %}">My Profile</a>
-		<div id="shot-bio">{{ user.profile.short_bio }}</div>
-		<div id="dob">{{ user.profile.dob }}</div>
-		<div id="gender">{{ user.profile.gender }}</div>
-		<div id="url"><a href="{{ user.profile.url }}">{{ user.profile.url }}</a></div>
-		<div id="about">{{ user.profile.about }}</div>
+		<img src="{{ profile_pic.image.profile_pic.url }}" alt="" />
+		<div id="name">{{ profile.name }}</div>
+
+		{% if_relationship user profile.user "following" %}
+			<form method="POST" action="{{ profile.user|remove_relationship_url:"following" }}?next={{ request.path }}">{% csrf_token %}
+				{{ form.as_p }}
+			<input type="submit" value="Unfollow"/>
+		{% else %}
+			<form method="POST" action="{{ profile.user|add_relationship_url:"following" }}?next={{ request.path }}">{% csrf_token %}
+				{{ form.as_p }}
+			<input type="submit" value="Follow"/>
+		{% endif_relationship %}
+		<br/><a href="{% url userprofile_user_profile profile.user.username %}">My Profile</a>
+		<div id="shot-bio">{{ profile.short_bio }}</div>
+		<div id="dob">{{ profile.dob }}</div>
+		<div id="gender">{{ profile.gender }}</div>
+		<div id="url"><a href="{{ profile.url }}">{{ profile.url }}</a></div>
+		<div id="about">{{ profile.about }}</div>
 	</div>
 {% endblock %}
