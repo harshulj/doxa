@@ -14,7 +14,7 @@
                 </ul>
             </div>
         </li>
-        <li class="head-nav-link right"><a href="{% url userprofile_my_profile %}">Profile</a></li>
+        <li class="head-nav-link right"><a href="{% url userprofile_user_profile user.username %}">Profile</a></li>
         <li class="head-nav-link right"><a href="{% url haystack_search %}">Search</a></li>
         {% else %}
         <li class="head-nav-link"><a href="{% url auth_login %}">Login</a></li>

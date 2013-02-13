@@ -13,19 +13,13 @@ from userprofile.forms import UserProfileForm, ProfilePicForm
 @login_required
 def user_profile(request, username, template="userprofile/user_profile.html"):
 	"""
-		This function shows the profile of a user to anyother user.
+		This function shows the profile to a user
 	"""
-	user =get_object_or_404(User, username=username)
+	if request.user.username != username:
+		user =get_object_or_404(User, username=username)
+	else:
+		user = request.user
 	return render_to_response(template, {'user':user}, context_instance=RequestContext(request))
-
-
-@login_required
-def my_profile(request, template="userprofile/my_profile.html"):
-	"""
-		This vie shows a user his own profile.
-	"""
-	profile = get_object_or_404(UserProfile, user=request.user)
-	return render_to_response(template, { 'profile': profile}, context_instance=RequestContext(request))
 
 @login_required
 def edit_profile(request, template="userprofile/edit_profile.html"):
