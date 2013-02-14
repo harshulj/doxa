@@ -241,6 +241,7 @@ INSTALLED_APPS = (
     'haystack',
     'social_auth',
     'relationships',
+    'notifications',
     'account',
     'userprofile',
     'polls_and_opinions',

@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^search/', include('haystack.urls')),
     url(r'account/', include('social_auth.urls')),
     url(r'', include('follow.urls')),
+    url('^account/notifications/', include('notifications.urls')),
 )
 
 if settings.DEBUG:
