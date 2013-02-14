@@ -12,7 +12,9 @@ distribute==0.6.28
 dj-database-url==0.2.1
 django-debug-toolbar==0.9.4
 django-haystack==1.2.7
+django-model-utils==1.2.0
 django-notification==1.0
+django-notifications-hq==0.5.5
 django-ratings==0.3.7
 django-recommends==0.0.11
 django-registration==0.8
