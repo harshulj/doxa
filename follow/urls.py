@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import *
 
-from relationships.views import relationship_redirect, relationship_list, relationship_handler
+from relationships.views import relationship_redirect, relationship_list
+from follow.views import relationship_handler
 
 urlpatterns = patterns('',
     url(r'^$', relationship_redirect, name='relationship_list_base'),
