@@ -1,11 +1,7 @@
-{% extends "base.html" %}
 {% load url from future %}
 
-{% block content %}
 <div class="alert alert-block alert-{{ notice.level }}">
-  <a class="close pull-right" href="{% url 'notifications:mark_as_read' notice.slug %}">
-    <i class="icon-close"></i>
-  </a>
+  <a class="close pull-right" href="{% url 'notifications:mark_as_read' notice.slug %}">Mark as Read</a>
   
   <h4>
     <i class="icon-mail{% if notice.unread %}-alt{% endif %}"></i>
@@ -26,4 +22,3 @@
     {% endfor %}
   </div>
 </div>
-{% endblock %}
