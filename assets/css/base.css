@@ -82,7 +82,7 @@ body{
 	font-size: 11pt;
 }
 
-#nav-search > input[type=submit], input[type=submit]:hover {
+#nav-search > input[type=submit] {
 	position: relative;
 	width: 40px;
 	left: -35px;

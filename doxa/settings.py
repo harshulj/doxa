@@ -49,6 +49,8 @@ PRIVATEBETA_ALWAYS_ALLOW_MODULES = [
         'django.contrib.admindocs.views',
         'django.views.static',
         'account.reg.views',
+        'invitation.views',
+        'registration',
 	]
 
 # easy_thumbnails setting
