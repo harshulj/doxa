@@ -1,24 +1,37 @@
-<div id="header">
-    <ul class="head-nav">
-        <li class="head-nav-link"><a href="/">Doxa</a></li>
-        <li class="head-nav-link"><a href="{% url polls_and_opinions_polls_list %}">Polls</a></li>
-        {% if user.is_authenticated %}
-        <li class="dropdown head-nav-link right">
-            <a class="dropdown-toggle" href="">Account</a>
-            <div class="submenu">
-                <ul class="head-nav-links">
-                    <li><a href="{% url userprofile_edit_profile %}">Edit Profile</a></li>
-                    <li><a href="{% url invitation_invite %}">Invite People</a></li>
-                    <li><a href="{% url auth_password_change  %}">Change Password</a></li>
-                    <li><a href="{% url auth_logout %}">Logout</a></li>
-                </ul>
-            </div>
-        </li>
-        <li class="head-nav-link right"><a href="{% url notifications:all %}">Notifications</a></li>
-        <li class="head-nav-link right"><a href="{% url userprofile_user_profile user.username %}">Profile</a></li>
-        <li class="head-nav-link right"><a href="{% url haystack_search %}">Search</a></li>
-        {% else %}
-        <li class="head-nav-link"><a href="{% url auth_login %}">Login</a></li>
-        {% endif %}
-    </ul>
-</div>
+            <header id="site-header">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="main-menu inline nav">
+                            <li class="site-nav-link"><a href="/"><img src="{{ STATIC_URL }}img/logo.png"/></a></li>
+                            {% if user.is_authenticated %}
+                            <li class="site-nav-link" id="search">
+                                <form id="nav-search" class="form-search search-bar">
+                                    <input type="text" class="search-query rounded" name="q"  placeholder="Search" />
+                                    <input type="submit" class="btn btn-primary" value="" name="" />
+                                </form>
+                            </li>
+                            <li class="site-nav-link pull-right">
+                                <a class="dropdown-toggle" data-dropdown="#dropdown-1" data-horizontal-offset="0" data-vertical-offset="18"   href="">
+                                    <span class="account">Account <i class="icon-settings icon-white"></i></span>
+                                </a>
+                            </li>
+                            <div id="dropdown-1" class="dropdown dropdown-tip dropdown-anchor-right">
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url userprofile_edit_profile %}">Edit Profile</a></li>
+                                    <li><a href="{% url invitation_invite %}">Invite User</a></li>
+                                    <li><a href="{% url auth_password_change  %}">Change Password</a></li>
+                                    <li class="dropdown-divider"></li>
+                                    <li><a href="{% url auth_logout %}">Logout</a></li>
+                                </ul>
+                            </div>
+                            <li class="site-nav-link pull-right"><a href="{% url notifications:all %}"><span class="notifications">Notifications <i class="icon-bell icon-white"></i></span></a></li>
+                            <li class="site-nav-link pull-right"><a href="{% url userprofile_user_profile user.username %}"><span class="profile">Profile <i class="icon-user icon-white"></i><span></a></li>
+                            <li class="site-nav-link pull-right"><a href=""><span class="create">Create <i class="icon-edit icon-white"></i></span></a></li>
+                            <li class="site-nav-link pull-right"><a href="{% url haystack_search %}"><span class="search">Search <i class="icon-search icon-white"></i></span></a></li>
+                            {% else %}
+                            <li class="site-nav-link pull-right"><a href="{% url auth_login %}">Login <i class="icon-power icon-white"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </header>

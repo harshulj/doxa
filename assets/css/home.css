@@ -1,0 +1,45 @@
+#left{
+	width: 60%;
+	max-width: 864px;
+	background: #aaa;
+	float: left;
+}
+
+#right{
+	width: 40%;
+	max-width: 576px;
+	float: right;
+	margin: 0px;
+	padding: 5px;
+/*	background: #aaa; */
+}
+
+#right-inner{
+	margin: 5px;
+}
+
+.right-box > .form-container{
+	margin: 10px 30px;
+	padding: 10px 0px;
+}
+.right-box{
+	margin: 10px 0px;
+	padding: 15px;
+	background: #fff;
+}
+
+.right-box > .box-link{
+	margin: 5px 30px;
+}
+
+.right-box > .box-text{
+	font-size: 12pt;
+	margin: 10px 30px;
+}
+
+.box-head{
+	color: #000 ;
+	margin: 10px;
+	padding: 10px 0px;
+	font-size: 18pt;
+}
