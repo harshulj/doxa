@@ -2,7 +2,7 @@ body{
  background-color: #F0EEE9;
 }
 #main-container{
-    width: 100%;
+    width: 100%
     margin: 0px auto;
     padding: 0px;
 }
@@ -15,14 +15,14 @@ body{
     top: 0;
     z-index: 10;
 }
-#site-header.navbar{
+#site-header > .navbar{
     margin: 0px auto;
-    background-color: #5007DC;
+    background-color: #2AA4CF;
     min-height: 60px;
 }
 
 #site-header .navbar .navbar-inner {
-    background-color: #2AA4CF;
+    width: 95%;
     color: #ffffff;
     font-size: 1.1rem;
     height:60px;
@@ -35,7 +35,8 @@ body{
 .navbar .nav {
     display: block;
     left: 0;
-    margin: 0 10px 0 0;
+    margin: 0px;
+    padding: 0px;
 }
 .nav{
     list-style: none outside none;
@@ -228,6 +229,9 @@ textarea, input, textarea:focus, input:focus {
 /*******   Scrollable Style ******/
 
 #scrollable{
+    position: relative;
+    margin: 0px auto;
+    width: 90%;
     padding-top: 60px;
 }
 
