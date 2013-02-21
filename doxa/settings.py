@@ -48,6 +48,7 @@ PRIVATEBETA_ALWAYS_ALLOW_MODULES = [
         'django.contrib.admin.sites',
         'django.contrib.admindocs.views',
         'django.views.static',
+        'account.reg.views',
 	]
 
 # easy_thumbnails setting
@@ -205,7 +206,7 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    #'privatebeta.middleware.PrivateBetaMiddleware',
+    'privatebeta.middleware.PrivateBetaMiddleware',
 )
 
 ROOT_URLCONF = 'doxa.urls'

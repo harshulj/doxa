@@ -9,15 +9,15 @@ urlpatterns = patterns('',
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('account.reg.urls')),
-    url(r'^account/', include('invitation.urls')),
+    url(r'^accounts/', include('invitation.urls')),
     url(r'', include('userprofile.urls')),
     url(r'^polls/', include('polls_and_opinions.urls.polls')),
     url(r'^$', direct_to_template, { 'template': 'index.html'} ),
     url(r'^invite/', include('privatebeta.urls')),
     url(r'^search/', include('haystack.urls')),
-    url(r'account/', include('social_auth.urls')),
+    url(r'accounts/', include('social_auth.urls')),
     url(r'', include('follow.urls')),
-    url('^account/notifications/', include('notifications.urls', namespace='notifications')),
+    url('^accounts/notifications/', include('notifications.urls', namespace='notifications')),
 )
 
 if settings.DEBUG:
