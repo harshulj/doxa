@@ -84,6 +84,8 @@ def poll_detail_authenticated(request,poll_id, template):
     vote_form = get_poll_vote_form(poll,existing_choice)
     opinion_form = OpinionForm(initial={'content_type_id':poll_type.id,'object_id':poll.id})
     
+    # It is imp to keep this statement here, allows addition of newly created opinions to the set.
+    opinions = [op for op in poll.opinions.all()]    
     # If we are processing a submitted form for a vote
     if request.method == "POST" and request.POST.get(VOTE_SUBMIT_NAME,'')==VOTE_SUBMIT_VALUE:
         # Poll was posted.
@@ -124,11 +126,14 @@ def poll_detail_authenticated(request,poll_id, template):
             text = opinion_form.cleaned_data['text']
             op = Opinion(author=request.user,text=text,content_type=poll_type,object_id=poll.id)
             op.save()
+            opinions.insert(0,op)
+            opinion_form = OpinionForm(initial={'content_type_id':poll_type.id,'object_id':poll.id})
+
     return render_to_response(template,{
                                         'poll':poll,
                                         'close_date':close_date,
                                         'vote_form' : vote_form,
-                                        'opinions' : poll.opinions.all(),
+                                        'opinions' : opinions,
                                         'vote_submit_value' : VOTE_SUBMIT_VALUE,
                                         'vote_submit_name' : VOTE_SUBMIT_NAME,
                                         'opinion_submit_value' : OPINION_SUBMIT_VALUE,
