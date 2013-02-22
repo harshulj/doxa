@@ -4,6 +4,7 @@ body{
 #main-container{
     width: 960px;
     margin: 0px auto;
+    margin-top : -40px;
     padding: 0px;
 }
 
@@ -91,7 +92,7 @@ body{
 
 #nav-bg
 {
-	position : fixed;
+	position : relative;
 	top : 0px;
 	left : 0px;
 	width : 100%;
