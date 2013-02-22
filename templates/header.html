@@ -2,7 +2,7 @@
                 <div class="navbar">
                     <div class="navbar-inner">
                         <ul class="main-menu inline nav">
-                            <li class="site-nav-link"><a href="/"><img src="{{ STATIC_URL }}img/logo.png"/></a></li>
+                            <li id="logo-li" class="site-nav-link"><a href="/"><img src="{{ STATIC_URL }}img/logo.png"/></a></li>
                             {% if user.is_authenticated %}
                             <li class="site-nav-link" id="search">
                                 <form id="nav-search" class="form-search search-bar">

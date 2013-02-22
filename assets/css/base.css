@@ -2,31 +2,32 @@ body{
  background-color: #F0EEE9;
 }
 #main-container{
-    width: 100%
+    width: 960px;
     margin: 0px auto;
     padding: 0px;
 }
 
 /*******   Header Style *******/
 #sticky{
-    position: fixed;
+/*    position: fixed;
     left: 0;
     right: 0;
     top: 0;
+*/
     z-index: 10;
 }
 #site-header > .navbar{
     margin: 0px auto;
     background-color: #2AA4CF;
-    min-height: 60px;
+    min-height: 40px;
 }
 
 #site-header .navbar .navbar-inner {
-    width: 95%;
+    width: 100%;
     color: #ffffff;
-    font-size: 1.1rem;
-    height:60px;
-    line-height: 60px;
+    font-size: 0.8rem;
+    height:40px;
+    line-height: 40px;
     margin: auto;
     max-width: 1440px;
     padding: 0;
@@ -44,7 +45,7 @@ body{
 
 .main-menu > li{
     display: block ;
-    line-height: 60px;
+    line-height: 40px;
     padding: 0px 10px;
 }
 
@@ -52,6 +53,11 @@ body{
     border-left: 1px solid #248CB1;
     float: right;
 }
+#logo-li
+{
+	padding: 0px;
+}
+
 
 .inline > li{
     display: inline;
@@ -63,7 +69,8 @@ body{
 }
 
 #search{
-    margin-left: 50px;
+    margin-left: 0px;
+    width : 340px;
 }
 
 #nav-search{
@@ -76,8 +83,8 @@ body{
 	border:1px solid #248CB1;
 	background-color: #fff;
 	height: 18pt;
-	width: 300px;
-	padding: 4px;
+	width: 280px;
+	padding: 4px 34px 4px 14px;
 	color: #2AA4CF;
 	font-size: 11pt;
 }

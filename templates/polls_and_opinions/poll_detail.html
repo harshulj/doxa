@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
+{% block page_specific_media %}
+<link href="{{ STATIC_URL }}polls_and_opinions/css/main.css" rel="stylesheet" />
+{% endblock %}
+
 {% block title %}
 	{{ poll }}
 {% endblock %}
 
 {% block content %}
-	<h2>{{ poll.question }}</h2>
+	<h2 id="poll_question">{{ poll.question }}</h2>
 	<p id="closes_on"><b>Closes on: </b>{{ close_date|date:"d b Y" }}</p>
 	
 	{% if user.is_authenticated %}
