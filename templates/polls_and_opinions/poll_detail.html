@@ -12,8 +12,22 @@
 {% block content %}
 	<h2 id="poll_question">{{ poll.question }}</h2>
 	<p id="closes_on"><b>Closes on: </b>{{ close_date|date:"d b Y" }}</p>
-	
+	<p><span class="highlighted">Tags : </span>{{ poll.tags }}</p>
+	<div id="poll_rating_stats">
+		<p> Average Rating : {{ poll.rating.get_rating }}
+			{% if poll_rating_user %}
+				<br/>Your Rating : {{ poll_rating_user }}
+			{% endif %}
+		</p>
+	</div>
 	{% if user.is_authenticated %}
+	<div id="rate-poll">
+	<form action="{% url polls_and_opinions_poll_rating_submit id=poll.id %}" method="POST">
+		{% csrf_token %}
+		{{ rating_form.as_p }}
+		<input type="submit" value="Rate"/>
+	</form>
+	</div>
 	<div id="poll_form">
 		<form action="{% url polls_and_opinions_vote_submit id=poll.id %}" method="POST">
 			{% csrf_token %}
