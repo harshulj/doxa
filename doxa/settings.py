@@ -264,6 +264,7 @@ INSTALLED_APPS = (
     'follow',
     'recommends',
     'recommends.storages.djangoorm',
+    'wall',
 )
 
 # A sample logging configuration. The only tangible logging
