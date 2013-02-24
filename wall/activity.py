@@ -27,6 +27,6 @@ def handle_choice_created(sender, **kwargs):
 choice_created.connect(handle_choice_created)
 
 def handle_vote_created(sender, **kwargs):
-	action.send(sender.author, verb=" voted on a poll ",action_object=sender)
+	action.send(sender.voter, verb=" voted on a poll ",action_object=sender)
 voted.connect(handle_vote_created)
 
