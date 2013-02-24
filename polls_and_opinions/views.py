@@ -98,7 +98,7 @@ def poll_detail_authenticated(request,poll_id, template):
         elif is_valid:
             # If a correct form was posted, handle the new vote.
             choice = vote_form.cleaned_data['choice']
-            # Make sure that the submitted choice and the Poll match
+            # Make sure that the submitted choice and the Poll match, disabling this check will reduce a db hit
             if not choice.poll == poll:
                 vote_form = get_poll_vote_form(poll,existing_choice)
             # If we have reached here then everything is in order. Process the vote.

@@ -1,11 +1,15 @@
 body{
- background-color: #F0EEE9;
+    background-image: url("../img/black_big.jpg");
+ /*background-color: #f0eee9;*/
 }
+
+
 #main-container{
     width: 960px;
     margin: 0px auto;
     margin-top : -40px;
     padding: 0px;
+    background-color : #fff;
 }
 
 /*******   Header Style *******/
