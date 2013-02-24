@@ -75,10 +75,10 @@ class PollForm(ModelForm):
         model = Poll
         exclude = ('author')
         widgets = {
-                   'questions' : forms.Textarea(attrs={'cols':80,'rows':10}),
+                   'question' : forms.Textarea(attrs={'cols':80,'rows':3}),
                    }
         
-class ChoiceForm(ModelForm):
+class ChoiceForm(forms.Form):
     '''
     Basic form for collecting text of a choice. Not meant to be used on its own
     but with a form for the associated Poll

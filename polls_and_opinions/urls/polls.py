@@ -22,4 +22,5 @@ urlpatterns = patterns('',
                        url(r'^vote/(?P<id>\d+)$',vote_submit,name=APP_NAME+"_vote_submit"),
                        url(r'^submit_poll_opinion/(?P<id>\d+)$',poll_opinion_submit,\
                            name=APP_NAME+"_poll_opinion_submit"),
+                       url(r'^create_poll/$',create_poll,name=APP_NAME+"_create_poll"),
                        )
