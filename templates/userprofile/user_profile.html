@@ -6,28 +6,41 @@
 	{{ profile.name }}
 {% endblock %}
 
-{% block content %}
-	{{ request.user }}
-	<div id="profile-container">
-		<img src="{{ profile_pic.image.profile_pic.url }}" alt="" />
-		<div id="name">{{ profile.name }}</div>
+{% block page_specific_media %}
+	<link href="{{ STATIC_URL }}userprofile/css/main.css" rel="stylesheet" />
+{% endblock %}
 
-		{% if_relationship user profile.user "following" %}
-			<form method="POST" action="{{ profile.user|remove_relationship_url:"following" }}?next={{ request.path }}">{% csrf_token %}
-				{{ form.as_p }}
-			<input type="submit" value="Unfollow"/>
-		{% else %}
-			<form method="POST" action="{{ profile.user|add_relationship_url:"following" }}?next={{ request.path }}">{% csrf_token %}
-				{{ form.as_p }}
-			<input type="submit" value="Follow"/>
-		{% endif_relationship %}
-		<br/><a href="{% url userprofile_user_profile profile.user.username %}">My Profile</a>
-		<div id="followers"><a href="{% url relationship_list profile.user.username "followers"%}">Followers</a></div>
-		<div id="following"><a href="{% url relationship_list profile.user.username "following"%}">Following</a></div>
-		<div id="shot-bio">{{ profile.short_bio }}</div>
-		<div id="dob">{{ profile.dob }}</div>
-		<div id="gender">{{ profile.gender }}</div>
-		<div id="url"><a href="{{ profile.url }}">{{ profile.url }}</a></div>
-		<div id="about">{{ profile.about }}</div>
+{% block content %}
+	<div id="profile-head">
+		<img id="profile-pic" src="{{ profile_pic.image.profile_pic.url }}" alt="" />
+		
+		<div id="profile-text">
+			{{ profile.name }}
+			<div id="shot-bio">{{ profile.short_bio }}</div>
+			<div id="dob">{{ profile.dob }}</div>
+			<div id="gender">{{ profile.gender }}</div>
+			<div id="url"><a href="{{ profile.url }}">{{ profile.url }}</a></div>
+			<div id="about">{{ profile.about }}</div>
+			{% if profile.user != request.user %}
+			{% if_relationship user profile.user "following" %}
+				<form method="POST" action="{{ profile.user|remove_relationship_url:"following" }}?next={{ request.path }}">{% csrf_token %}
+					{{ form.as_p }}
+				<input type="submit" value="Unfollow"/>
+			{% else %}
+				<form method="POST" action="{{ profile.user|add_relationship_url:"following" }}?next={{ request.path }}">{% csrf_token %}
+					{{ form.as_p }}
+				<input type="submit" value="Follow"/>
+			{% endif_relationship %}
+			{% endif %}
+		</div>
+	</div>
+	<div id="profile-content">
+		<div id="profile-left-links">
+			<ul>
+				<li><a href="{% url userprofile_user_profile profile.user.username %}">My Profile</a></li>
+				<li><a href="{% url relationship_list profile.user.username "followers"%}">Followers</a></li>
+				<li class="last-link"><a href="{% url relationship_list profile.user.username "following"%}">Following</a></li>
+			</ul>
+		</div>
 	</div>
 {% endblock %}
