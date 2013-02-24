@@ -3,8 +3,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils import simplejson as json
+
 from relationships.decorators import require_user
 from relationships.views import get_relationship_status_or_404
+from follow.signals import *
 
 @login_required
 @require_user
@@ -14,8 +16,10 @@ def relationship_handler(request, user, status_slug, add=True,template_name='rel
 	if request.method == 'POST':
 		if add:
 			request.user.relationships.add(user, status, is_symm)
+			created_relationship.send(sender=request.user, user=user, status=status)
 		else:
 			request.user.relationships.remove(user, status, is_symm)
+			destroyed_relationship.send(sender=request.user, user=user, status=status)
 		if request.is_ajax():
 			response = {'result': '1'}
 			return HttpResponse(json.dumps(response), mimetype="application/json")
