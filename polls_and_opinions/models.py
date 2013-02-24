@@ -18,6 +18,8 @@ from recommends.providers import recommendation_registry, RecommendationProvider
 from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 
+from signals import *
+
 APP_NAME = 'polls_and_opinions'
 
 class Opinion(models.Model):
@@ -85,6 +87,15 @@ class Opinion(models.Model):
                     content_type has value %s and \n\
                     object_id has value %s"%(self.content_type,self.object_id))
         
+    def save(self, *args, **kwargs):
+        new = False
+        if not self.id:
+            new = True
+        super(Opinion,self).save(*args,**kwargs)
+        #If the model got successfully saved and this is a newly created
+        #instance, emit a signal
+        if new:
+            opinion_created.send(sender = self)
     
     class Meta:
         ordering = ['-created_on']
@@ -137,6 +148,17 @@ class Poll(models.Model):
     class Meta:
         ordering = ['-published_on']
         
+    def save(self, *args, **kwargs):
+        new = False
+        if not self.id:
+            new = True
+        super(Poll,self).save(*args,**kwargs)
+        #If the model got successfully saved and this is a newly created
+        #instance, emit a signal
+        if new:
+            poll_created.send(sender = self)
+        
+        
 class Choice(models.Model):
     '''
     A choice for a doxa Poll
@@ -158,6 +180,17 @@ class Choice(models.Model):
     
     def __unicode__(self):
         return truncate_text(self.text, 50)
+    
+    def save(self, *args, **kwargs):
+        new = False
+        if not self.id:
+            new = True
+        super(Choice,self).save(*args,**kwargs)
+        #If the model got successfully saved and this is a newly created
+        #instance, emit a signal
+        if new:
+            choice_created.send(sender = self)
+ 
 
 class Vote(models.Model):
     '''
@@ -184,6 +217,18 @@ class Vote(models.Model):
         
         # Call the default validate_unique
         super(Vote,self).clean(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        new = False
+        if not self.id:
+            new = True
+        super(Vote,self).save(*args,**kwargs)
+        #If the model got successfully saved and this is a newly created
+        #instance, emit a signal
+        if new:
+            vote_created.send(sender = self)
+
+
 
 def truncate_text(text, max_length):
     '''
