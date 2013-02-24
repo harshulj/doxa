@@ -52,16 +52,16 @@ class Opinion(models.Model):
     __rating = RatingField(range=2, can_change_vote=True, allow_delete=True)
 
     # The Vote property of the Opinion is the one to be used    
-    def _get_vote(self):
-        if self.__rating is None:
+    def get_vote_for_user(self,user):
+        rating = self.__rating.get_rating_for_user(user)
+        if rating is None or rating==0:
             return 0
-        elif self.__rating == 1:
+        elif rating == 1:
             return -1
         else:
             return 1
 
-    def _set_vote(self,vote_request):
-        vote,request = vote_request
+    def set_vote_for_user(self,request,vote):
         if vote < -1 or vote > 1:
             raise ValueError("An opinion vote must be either 0(no vote),-1(downvote) or 1(upvote)")
         rating = self.__rating.get_rating_for_user(request.user)
@@ -73,8 +73,6 @@ class Opinion(models.Model):
             else:
                 val = 2
             self.__rating.add(score=val, user=request.user, ip_address=request.META['REMOTE_ADDR'])
-
-    vote = property(_get_vote,_set_vote)
     
     def clean(self):
         '''

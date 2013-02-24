@@ -84,3 +84,6 @@ class ChoiceForm(forms.Form):
     but with a form for the associated Poll
     '''
     text = forms.CharField(max_length=100)
+
+class PollRatingForm(forms.Form):
+    rating = forms.ChoiceField(choices=[(i,i) for i in xrange(6)])
