@@ -51,7 +51,12 @@ class Opinion(models.Model):
     # if rating is 2, vote is +1 (upvote)
     __rating = RatingField(range=2, can_change_vote=True, allow_delete=True)
 
-    # The Vote property of the Opinion is the one to be used    
+    # The Vote property of the Opinion is the one to be used
+    def get_vote_stats(self):
+        uvotes = (self.__rating.score - self.__rating.votes)
+        dvotes = (self.__rating.votes - uvotes)
+        return (uvotes,dvotes)
+       
     def get_vote_for_user(self,user):
         rating = self.__rating.get_rating_for_user(user)
         if rating is None or rating==0:
