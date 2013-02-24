@@ -142,12 +142,20 @@ def poll_detail_authenticated(request,poll_id, template):
     opinion_form = OpinionForm(initial={'content_type_id':poll_type.id,'object_id':poll.id})
     poll_rating_user = poll.rating.get_rating_for_user(request.user)
     rating_form = PollRatingForm(initial={'rating':0 if poll_rating_user is None else poll_rating_user})
+    opinions = poll.opinions.all()
+    for op in opinions:
+        rating = op.get_vote_for_user(request.user)
+        if not rating:
+            op.user_vote = None
+        else:
+            op.user_vote = "upvoted" if rating == 1 else "downvoted"
+            
     return render_to_response(template,{
                                         'poll':poll,
                                         'poll_rating_user':poll_rating_user,
                                         'close_date':close_date,
                                         'vote_form' : vote_form,
-                                        'opinions' : poll.opinions.all(),
+                                        'opinions' : opinions,
                                         'opinion_form' : opinion_form,
                                         'rating_form' : rating_form,
                                         #'authenticated' :True,
@@ -210,6 +218,7 @@ def create_poll(request):
                                         'choice_forms' : choice_forms,
                                         },context_instance= RequestContext(request))
 
+@login_required 
 def poll_rating_submit(request,id):
     if request.method == 'POST':
         rating_form = PollRatingForm(request.POST)
@@ -220,3 +229,12 @@ def poll_rating_submit(request,id):
             poll.rating.add(score=rating_form.cleaned_data['rating'], user=request.user,\
                              ip_address=request.META['REMOTE_ADDR'])
     return HttpResponseRedirect(reverse(APP_NAME+"_poll_detail", kwargs={'id':id}))
+
+@login_required 
+def poll_opinion_vote_submit(request,id,score,poll_id):
+    if request.method == 'GET':
+        if score == '1' or score == '2':
+            vote = 1 if score=='1' else -1
+        op = get_object_or_404(Opinion,id=id)
+        op.set_vote_for_user(request,vote)
+    return HttpResponseRedirect(reverse(APP_NAME+"_poll_detail", kwargs={'id':poll_id}))

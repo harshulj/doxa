@@ -1,0 +1,88 @@
+td.rating-td
+{
+	width: 100px;
+}
+td.stats-td
+{
+	width : 250px;
+}
+
+#opinion-form-submit
+{
+	float : right;
+	padding-top : 3px;
+	padding-right : 6px;
+}
+#opinion-form-outer
+{
+	width : 400px;
+	padding : 10px 10px 2px 10px;
+	margin : 5px;
+	height: 100px;
+	background-color : #ddd;
+}
+#opinion-form-clear
+{
+	clear: both;
+}
+#poll_opinions
+{
+	float : right;
+}
+#poll_details
+{
+	float : left;
+}
+
+.opinion
+{
+	background-color : #bfd1d7;
+	width : 400px;
+	padding : 2px 10px;
+	margin : 5px;
+	clear : both;
+}
+.opinion p
+{
+	padding : 0px;
+	margin : 0px;
+}
+.opinion-upper
+{
+	border-bottom : 1px solid #aaa;
+}
+.opinion-stats
+{
+	font-size : 12px;
+}
+.opinion-stats td
+{
+
+}
+.opinion-stat
+{
+	width : 135px;
+	padding-right : 10px;
+}
+.opinion-vote-stat
+{
+	width : 80px;
+	padding-right : 10px;
+}
+.opinion-text
+{
+
+}
+.opinion-user-vote
+{
+	width : 100px;
+}
+.opinion-vote-button
+{
+	width :35px;
+	text-align : center;
+}
+.opinion-clear
+{
+	clear : both;
+}

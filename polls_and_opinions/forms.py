@@ -54,7 +54,7 @@ class OpinionForm(forms.Form):
     # The min_value on these fields is set to 0 coz they are primary keys.
     object_id = forms.IntegerField(widget=forms.HiddenInput, required=False, min_value=0)
     content_type_id = forms.IntegerField(widget=forms.HiddenInput, required=False, min_value=0)
-    text = forms.CharField(widget = forms.Textarea, required=False)
+    text = forms.CharField(widget = forms.Textarea(attrs={'cols':55,'rows':3}), required=False)
     
     def __init__(self, *args, **kwargs):
         '''

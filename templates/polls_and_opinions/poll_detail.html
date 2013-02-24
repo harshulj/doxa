@@ -3,6 +3,7 @@
 
 {% block page_specific_media %}
 <link href="{{ STATIC_URL }}polls_and_opinions/css/main.css" rel="stylesheet" />
+<link href="{{ STATIC_URL }}polls_and_opinions/css/poll_detail.css" rel="stylesheet" />
 {% endblock %}
 
 {% block title %}
@@ -10,66 +11,94 @@
 {% endblock %}
 
 {% block content %}
-	<h2 id="poll_question">{{ poll.question }}</h2>
-	<p id="closes_on"><b>Closes on: </b>{{ close_date|date:"d b Y" }}</p>
-	<p><span class="highlighted">Tags : </span>{{ poll.tags }}</p>
-	<div id="poll_rating_stats">
-		<p> Average Rating : {{ poll.rating.get_rating }}
-			{% if poll_rating_user %}
-				<br/>Your Rating : {{ poll_rating_user }}
-			{% endif %}
-		</p>
-	</div>
-	{% if user.is_authenticated %}
-	<div id="rate-poll">
-	<form action="{% url polls_and_opinions_poll_rating_submit id=poll.id %}" method="POST">
-		{% csrf_token %}
-		{{ rating_form.as_p }}
-		<input type="submit" value="Rate"/>
-	</form>
-	</div>
-	<div id="poll_form">
-		<form action="{% url polls_and_opinions_vote_submit id=poll.id %}" method="POST">
-			{% csrf_token %}
-			{{ vote_form.as_p }}
-			<input type="submit" value="Vote" />
-		</form>
-	</div>
-
-	{% else %}
-	<div id="poll_choices">
+	<div id="poll_details">
+		<h2 id="poll_question">{{ poll.question }}</h2>
 		<table>
-			{% for choice in choices %}
-				<tr>
-					<td>{{ choice.text }}</td><td>{{ choice.votes }}</td>
-				</tr>
-			{% endfor %}
+		<tr>
+			<td class="stats-td"><span class="highlighted">Closes on: </span>{{ close_date|date:"d b Y" }}</td>
+			<td class="stats-td"><span class="highlighted">Tags : </span>{{ poll.tags }}</td>
+		</tr><tr>
+			<td class="stats-td"><span class="highlighted">Average Rating : </span>{{ poll.rating.get_rating }}</td>
+		{% if poll_rating_user %}
+				<td class="stats-td"><span class="highlighted">Your Rating : </span>{{ poll_rating_user }}</td>
+		{% endif %}
+		</tr>
+
 		</table>
+		{% if user.is_authenticated %}
+		<div id="rate-poll">
+		<form action="{% url polls_and_opinions_poll_rating_submit id=poll.id %}" method="POST">
+			{% csrf_token %}
+			<table>
+			<tr>
+				<td class="rating-td">{{ rating_form.as_p }}</td>
+				<td class="rating-td"><input type="submit" value="Rate"/></td>
+			</tr>
+			</table>
+		</form>
+		</div>
+		<div id="poll_form">
+			<form action="{% url polls_and_opinions_vote_submit id=poll.id %}" method="POST">
+				{% csrf_token %}
+				{{ vote_form.as_p }}
+				<input type="submit" value="Vote" />
+			</form>
+		</div>
+
+		{% else %}
+		<div id="poll_choices">
+			<table>
+				{% for choice in choices %}
+					<tr>
+						<td>{{ choice.text }}</td><td>{{ choice.votes }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+		{% endif %}
 	</div>
-	{% endif %}
-	
 	<div id="poll_opinions">
 		<h4>Opinions</h4>
 		{% if user.is_authenticated %}
-		<div id="opinion_form">
+		<div id="opinion-form-outer">
 			<form action="{% url polls_and_opinions_poll_opinion_submit id=poll.id %}" method="POST">
 				{% csrf_token %}
-				{{ opinion_form.as_p }}
-				<input type="submit" name={{ opinion_submit_name }} value={{ opinion_submit_value}} />
+				<div id="opinion-form">
+					<div id="opinion-form-text">
+						{{ opinion_form.text }}
+					</div>
+					<div id="opinion-form-submit">
+						<input type="submit" value="Add" />
+					</div>
+					<div id="opinion-form-clear">
+					</div>
+				</div>
+				{{ opinion_form.object_id }}
+				{{ opinion_form.content_type_id }}
 			</form>
 		</div>
 		{% endif %}
-		{% for opinion in opinions %}
-		<div class="opinion">
-			<p>
-			{{ opinion.text }}
-			</p>
-			<p>
-			by : {{ opinion.author }}<br/>
-			on {{ opinion.created_on|date:"d b Y" }}
-			</p>
-		</div>
+		<div id="old-opinions">
+			{% for opinion in opinions %}
+			<div class="opinion">
+				<div class="opinion-upper">
+					<p class="opinion-text">
+					{{ opinion.text }}
+					</p>
+				</div>
+				<table class="opinion-stats">
+				<tr>
+					<td class="opinion-stat">by : {{ opinion.author }} on {{ opinion.created_on|date:"d b Y" }}</td>
+					<td class="opinion-vote-stat">up: {{ opinion.get_vote_stats.0 }} &nbsp;down: {{ opinion.get_vote_stats.1 }}</td>
+					<td class="opinion-user-vote">{% if opinion.user_vote %}You {{ opinion.user_vote }}{% endif %}</td>
+					<td class="opinion-vote-button"><a href="{% url polls_and_opinions_poll_opinion_vote_submit id=opinion.id, score=1, poll_id=poll.id %}">Up</a></td>
+					<td class="opinion-vote-button"><a href="{% url polls_and_opinions_poll_opinion_vote_submit id=opinion.id, score=2, poll_id=poll.id %}">Down</a></td>
+				</tr>
+				</table>
+				
+			</div>
 		{% endfor %}
+		</div>
 	</div>
 
 {% endblock %}
