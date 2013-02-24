@@ -19,4 +19,7 @@ poll_info = {'queryset': Poll.objects.all(),
 urlpatterns = patterns('',
                        url(r'^$',poll_list,name=APP_NAME+"_polls_list"),
                        url(r'^(?P<id>\d+)$',poll_detail,name=APP_NAME+"_poll_detail"),
+                       url(r'^vote/(?P<id>\d+)$',vote_submit,name=APP_NAME+"_vote_submit"),
+                       url(r'^submit_poll_opinion/(?P<id>\d+)$',poll_opinion_submit,\
+                           name=APP_NAME+"_poll_opinion_submit"),
                        )
