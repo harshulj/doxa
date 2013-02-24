@@ -5,7 +5,7 @@
                             <li id="logo-li" class="site-nav-link"><a href="/"><img src="{{ STATIC_URL }}img/logo.png"/></a></li>
                             {% if user.is_authenticated %}
                             <li class="site-nav-link" id="search">
-                                <form id="nav-search" class="form-search search-bar">
+                                <form id="nav-search" class="form-search search-bar" action="{% url haystack_search %}" method="GET">
                                     <input type="text" class="search-query rounded" name="q"  placeholder="Search" />
                                     <input type="submit" class="btn btn-primary" value="" name="" />
                                 </form>
@@ -24,7 +24,7 @@
                                     <li><a href="{% url auth_logout %}">Logout</a></li>
                                 </ul>
                             </div>
-                            <li class="site-nav-link pull-right"><a href="{% url notifications:all %}"><span class="notifications">Notifications <i class="icon-bell icon-white"></i></span></a></li>
+                            <li class="site-nav-link pull-right"><a href="{% url notifications:unread %}"><span class="notifications">Notifications <i class="icon-bell icon-white"></i></span></a></li>
                             <li class="site-nav-link pull-right"><a href="{% url userprofile_user_profile user.username %}"><span class="profile">Profile <i class="icon-user icon-white"></i><span></a></li>
                             <li class="site-nav-link pull-right"><a href="{% url polls_and_opinions_create_poll %}"><span class="create">Poll <i class="icon-edit icon-white"></i></span></a></li>
                             {% else %}
