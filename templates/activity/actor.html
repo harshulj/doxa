@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load activity_tags i18n %}
+{% block page_specific_media %}
+<script>
+$(function () {
+    $("#follow_button, #unfollow_button").click(function () {
+        $.post($(this).attr("href"), {});
+        $(this).parent().find("#follow_button, #unfollow_button").toggle();
+        return false
+    });
+});
+</script>
+{% endblock %}
+
+
+{% block title %}{% ifequal request.user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<p><b><a href="{% actor_url request.user %}">{% trans "View my actions" %}</a></b></p>
+{% endif %}
+<ul>
+{% for action in action_list %}
+    <li>{% include 'activity/action.html' %}</li>
+{% empty %}
+{% trans "No actions yet" %}
+{% endfor %}
+</ul>
+{% endblock %}
