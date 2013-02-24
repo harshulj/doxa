@@ -15,7 +15,18 @@ def handle_destroy_relationship(sender, user, status, **kwargs):
 destroyed_relationship.connect(handle_destroy_relationship)
 
 def handle_poll_created(sender, **kwargs):
-	for user in sender.author.relationships.followers():
-		action.send(sender.author, verb=" has created a poll ",action_object=sender)
+	action.send(sender.author, verb=" has created a poll ",action_object=sender)
 poll_created.connect(handle_poll_created)
+
+def handle_opinion_created(sender, **kwargs):
+	action.send(sender.author, verb=" wote an Opinion ",action_object=sender)
+opinion_created.connect(handle_opinion_created)
+
+def handle_choice_created(sender, **kwargs):
+	action.send(sender.author, verb=" added a choice to a poll ",action_object=sender)
+choice_created.connect(handle_choice_created)
+
+def handle_vote_created(sender, **kwargs):
+	action.send(sender.author, verb=" voted on a poll ",action_object=sender)
+voted.connect(handle_vote_created)
 
