@@ -12,12 +12,13 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('invitation.urls')),
     url(r'', include('userprofile.urls')),
     url(r'^polls/', include('polls_and_opinions.urls.polls')),
+    url(r'', include('wall.urls')),
     url(r'^$', direct_to_template, { 'template': 'index.html'} ),
     url(r'^invite/', include('privatebeta.urls')),
     url(r'^search/', include('haystack.urls')),
     url(r'accounts/', include('social_auth.urls')),
     url(r'', include('follow.urls')),
-    url('^accounts/notifications/', include('notifications.urls', namespace='notifications')),
+    url(r'^accounts/notifications/', include('notifications.urls', namespace='notifications')),
 )
 
 if settings.DEBUG:

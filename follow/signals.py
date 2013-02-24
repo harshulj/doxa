@@ -1,3 +1,4 @@
 from django.dispatch import Signal
 
-created_relationship = django.dispatch.Signal(providing_args=[])
+created_relationship = Signal(providing_args=["user", "status"])
+destroyed_relationship = Signal(providing_args=["user", "status"])
