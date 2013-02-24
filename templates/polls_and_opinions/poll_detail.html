@@ -88,7 +88,7 @@
 				</div>
 				<table class="opinion-stats">
 				<tr>
-					<td class="opinion-stat">by : {{ opinion.author }} on {{ opinion.created_on|date:"d b Y" }}</td>
+					<td class="opinion-stat">by : {{ opinion.author }} on {{ opinion.created_on|date:"d b" }}</td>
 					<td class="opinion-vote-stat">up: {{ opinion.get_vote_stats.0 }} &nbsp;down: {{ opinion.get_vote_stats.1 }}</td>
 					<td class="opinion-user-vote">{% if opinion.user_vote %}You {{ opinion.user_vote }}{% endif %}</td>
 					<td class="opinion-vote-button"><a href="{% url polls_and_opinions_poll_opinion_vote_submit id=opinion.id, score=1, poll_id=poll.id %}">Up</a></td>

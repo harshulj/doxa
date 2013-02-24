@@ -15,10 +15,10 @@ td.stats-td
 }
 #opinion-form-outer
 {
-	width : 400px;
+	width : 420px;
 	padding : 10px 10px 2px 10px;
 	margin : 5px;
-	height: 100px;
+	height: 110px;
 	background-color : #ddd;
 }
 #opinion-form-clear
@@ -37,7 +37,7 @@ td.stats-td
 .opinion
 {
 	background-color : #bfd1d7;
-	width : 400px;
+	width : 420px;
 	padding : 2px 10px;
 	margin : 5px;
 	clear : both;
@@ -66,7 +66,7 @@ td.stats-td
 }
 .opinion-vote-stat
 {
-	width : 80px;
+	width : 90px;
 	padding-right : 10px;
 }
 .opinion-text
@@ -75,7 +75,7 @@ td.stats-td
 }
 .opinion-user-vote
 {
-	width : 100px;
+	width : 95px;
 }
 .opinion-vote-button
 {
@@ -85,4 +85,8 @@ td.stats-td
 .opinion-clear
 {
 	clear : both;
+}
+#opinion-form-text textarea
+{
+	width : 410px;
 }
