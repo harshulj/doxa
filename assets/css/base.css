@@ -278,7 +278,7 @@ textarea, input, textarea:focus, input:focus {
 	background:rgba(226,227,213,0.2);
 	-webkit-box-shadow: #B3B3B3 4px 4px 4px;
 	-moz-box-shadow: #B3B3B3 4px 4px 4px; 
-	box-shadow: #B3B3B3 4px 4px 4px;
+	box-shadow: #B3B3B3 0px 4px 4px;
 }
 
 #footer > ul{

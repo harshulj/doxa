@@ -1,0 +1,23 @@
+{% extends "userprofile/generic_profile.html" %}
+{% load relationship_tags %}
+{% block page_specific_media %}
+	{{ block.super }}
+	<link href="{{ STATIC_URL }}userprofile/css/profile_list.css" rel="stylesheet" />
+{% endblock %}
+
+{% block profile-right %}
+	{% for user in relationship_list %}
+		<div class="user-list">
+			<img href="{{ user.profile_pic.image.profile_pic.url }}"/>
+			<div class="user-list-info">
+				<a href="{% url userprofile_user_profile user.username %}">{{ user.get_full_name }}</a>
+				<a href="{% url userprofile_user_profile user.username %}">{{ user.username }}</a><br/>
+				<span class="short-bio">{{ user.profile.short_bio }}</span>
+				{% if_relationship request.user user "following" %}
+						<form method="POST" action="{{ user|remove_relationship_url:"following" }}?next={{ request.path }}">{% csrf_token %}
+							{{ form.as_p }}
+							<input type="submit" value="Unfollow"/>
+				{% endif_relationship %}
+			</div>
+  {% endfor %}
+{% endblock %}
