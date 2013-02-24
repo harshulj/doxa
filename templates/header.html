@@ -26,7 +26,7 @@
                             </div>
                             <li class="site-nav-link pull-right"><a href="{% url notifications:all %}"><span class="notifications">Notifications <i class="icon-bell icon-white"></i></span></a></li>
                             <li class="site-nav-link pull-right"><a href="{% url userprofile_user_profile user.username %}"><span class="profile">Profile <i class="icon-user icon-white"></i><span></a></li>
-                            <li class="site-nav-link pull-right"><a href="/polls/"><span class="create">Polls <i class="icon-edit icon-white"></i></span></a></li>
+                            <li class="site-nav-link pull-right"><a href="{% url polls_and_opinions_create_poll %}"><span class="create">Poll <i class="icon-edit icon-white"></i></span></a></li>
                             <li class="site-nav-link pull-right"><a href="{% url haystack_search %}"><span class="search">Search <i class="icon-search icon-white"></i></span></a></li>
                             {% else %}
                             <li class="site-nav-link pull-right"><a href="{% url auth_login %}">Login <i class="icon-power icon-white"></i></a></li>
