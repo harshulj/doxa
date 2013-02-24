@@ -14,6 +14,7 @@ from django.template import RequestContext
 from datetime import datetime,timedelta
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
+from django.forms.formsets import formset_factory
 
 from models import *
 from forms import *
@@ -173,9 +174,22 @@ def poll_list(request, template=APP_NAME+"/polls_list.html"):
                                         'polls':polls,
                                         },context_instance= RequestContext(request))
 
+
 @login_required
 def create_poll(request):
     '''
     View for allowing a user to create a poll and to also add choices to it.
     '''
-    pass
+    ChoiceFormset = formset_factory(ChoiceForm, extra=2)
+    if request.method == "POST":
+        poll_form = PollForm(request.POST)
+        choice_forms = ChoiceFormset(request.POST)
+    else:
+        poll_form = PollForm()
+        choice_forms = ChoiceFormset()
+        
+    return render_to_response(APP_NAME+"/create_poll.html",{
+                                        'poll_form' : poll_form,
+                                        'choice_forms' : choice_forms,
+                                        },context_instance= RequestContext(request))
+    

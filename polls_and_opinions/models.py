@@ -219,14 +219,7 @@ class Vote(models.Model):
         super(Vote,self).clean(*args, **kwargs)
 
     def save(self, *args, **kwargs):
-        new = False
-        if not self.id:
-            new = True
-        super(Vote,self).save(*args,**kwargs)
-        #If the model got successfully saved and this is a newly created
-        #instance, emit a signal
-        if new:
-            vote_created.send(sender = self)
+        voted.send(sender = self)
 
 
 
