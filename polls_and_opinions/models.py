@@ -222,6 +222,7 @@ class Vote(models.Model):
         super(Vote,self).clean(*args, **kwargs)
 
     def save(self, *args, **kwargs):
+        super(Vote,self).save(*args,**kwargs)
         voted.send(sender = self)
 
 

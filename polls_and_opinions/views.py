@@ -69,7 +69,7 @@ def vote_submit(request,id):
     poll = get_poll_or_404(id)
     # See if a vote exists for this poll for the current user.
     try:
-        vote = Vote.objects.select_related().get(voter=request.user,choice__poll=poll)
+        vote = Vote.objects.get(voter=request.user,choice__poll=poll)
         existing_choice = vote.choice
     except Vote.DoesNotExist:
         vote = None
