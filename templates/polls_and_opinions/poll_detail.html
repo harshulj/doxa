@@ -15,10 +15,10 @@
 	
 	{% if user.is_authenticated %}
 	<div id="poll_form">
-		<form action="" method="POST">
+		<form action="{% url polls_and_opinions_vote_submit id=poll.id %}" method="POST">
 			{% csrf_token %}
 			{{ vote_form.as_p }}
-			<input type="submit" name={{ vote_submit_name }} value={{ vote_submit_value}} />
+			<input type="submit" value="Vote" />
 		</form>
 	</div>
 
@@ -38,7 +38,7 @@
 		<h4>Opinions</h4>
 		{% if user.is_authenticated %}
 		<div id="opinion_form">
-			<form action="" method="POST">
+			<form action="{% url polls_and_opinions_poll_opinion_submit id=poll.id %}" method="POST">
 				{% csrf_token %}
 				{{ opinion_form.as_p }}
 				<input type="submit" name={{ opinion_submit_name }} value={{ opinion_submit_value}} />
