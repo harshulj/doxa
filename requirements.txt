@@ -10,6 +10,7 @@ billiard==2.7.3.21
 celery==3.0.15
 distribute==0.6.28
 dj-database-url==0.2.1
+django-activity-stream==0.4.4
 django-debug-toolbar==0.9.4
 django-haystack==1.2.7
 django-model-utils==1.2.0
