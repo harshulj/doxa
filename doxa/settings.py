@@ -61,6 +61,16 @@ THUMBNAIL_ALIASES = {
 }
 THUMBNAIL_DEBUG = True
 
+# ACtivity Stream Settings
+ACTSTREAM_SETTINGS = {
+	'MODELS': ('auth.user', 'auth.group', 'polls_and_opinions.opinion', 'polls_and_opinions.poll', 'polls_and_opinions.choice', 'polls_and_opinions.vote'),
+	'MANAGER': 'actstream.managers.ActionManager',
+	'FETCH_RELATIONS': True,
+	'USE_PREFETCH': True,
+	'USE_JSONFIELD': True,
+	'GFK_FETCH_DEPTH': 1,
+}
+
 # Django debuug toolbar settings
 DEBUG_TOOLBAR_PANELS = (
     'debug_toolbar.panels.version.VersionDebugPanel',
@@ -245,6 +255,7 @@ INSTALLED_APPS = (
     'social_auth',
     'relationships',
     'notifications',
+    'actstream',
     'account',
     'userprofile',
     'polls_and_opinions',
