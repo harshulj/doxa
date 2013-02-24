@@ -1,0 +1,7 @@
+{% extends "userprofile/generic_profile.html" %}
+
+{% block profile-right %}
+  {% for user in relationship_list %}
+    <a href="{% url userprofile_user_profile user.username%}">{{ user.get_full_name }}</a><br/>
+  {% endfor %}
+{% endblock %}
