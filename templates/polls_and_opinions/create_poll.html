@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block page_specific_media %}
+<link href="{{ STATIC_URL }}polls_and_opinions/css/main.css" rel="stylesheet" />
+<link href="{{ STATIC_URL }}polls_and_opinions/css/create_poll.css" rel="stylesheet" />
+<script type="text/javascript" src="{{ STATIC_URL }}polls_and_opinions/js/create_poll.js"/>
+{% endblock %}
+
+{% block title %}
+	Create Poll
+{% endblock %}
+
+{% block content %}
+	<h2 class="page-heading">Create Poll</h2>
+	<div id="forms">
+		<form action="" method="POST">
+		{% csrf_token %}
+			<table>
+				{{ poll_form.as_table }}
+				<tr></tr>
+				
+				<tr><td>Choices</td></tr>
+				
+				{% for form in choice_forms.forms %}
+					<tr id="{{ form.prefix }}-row" class="dynamic-form">
+						<th>Choice Text : </th>
+						<td>{{ form.text }}</td>
+						<td{% if forloop.first %} class="hidden"{% endif %}>
+							<a id="remove-{{ form.prefix }}-row" href="" class="delete-row"></a>
+						</td>
+					</tr>
+				{% endfor %}
+				<tr>
+					<td colspan="4"><a href="" id="add-choice">Add Choice</a></td>
+				</tr>
+			</table>
+			<div id="choices-management-form">
+			{{ choice_forms.management_form }}
+			</div>
+			<div><input type="submit" value="submit"/></div>
+		</form>
+	</div>
+
+{% endblock %}

@@ -15,6 +15,8 @@ from datetime import datetime,timedelta
 from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
+from django.db import transaction
+from django.utils import timezone
 
 from models import *
 from forms import *
@@ -176,14 +178,26 @@ def poll_list(request, template=APP_NAME+"/polls_list.html"):
 
 
 @login_required
+@transaction.commit_on_success
 def create_poll(request):
     '''
     View for allowing a user to create a poll and to also add choices to it.
     '''
-    ChoiceFormset = formset_factory(ChoiceForm, extra=2)
+    ChoiceFormset = formset_factory(ChoiceForm, extra=1)
     if request.method == "POST":
         poll_form = PollForm(request.POST)
         choice_forms = ChoiceFormset(request.POST)
+        if poll_form.is_valid() and choice_forms.is_valid():
+            # Create Poll and associated choices
+            poll = poll_form.save(commit=False)
+            poll.author = request.user
+            if poll.published_on is None:
+                poll.published_on = timezone.now()
+            poll.save()
+            for choice_form in choice_forms.cleaned_data:
+                choice = Choice.objects.create(author=request.user,text=choice_form['text'],\
+                                               poll=poll)
+            return HttpResponseRedirect(reverse(APP_NAME+"_poll_detail", kwargs={'id':poll.id}))
     else:
         poll_form = PollForm()
         choice_forms = ChoiceFormset()
