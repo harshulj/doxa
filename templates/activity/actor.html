@@ -16,9 +16,6 @@ $(function () {
 {% block title %}{% ifequal request.user actor %}Your feed{% else %}{{ actor }}{% endifequal %}{% endblock %}
 
 {% block content %}
-{% if request.user.is_authenticated %}
-<p><b><a href="{% actor_url request.user %}">{% trans "View my actions" %}</a></b></p>
-{% endif %}
 <ul>
 {% for action in action_list %}
     <li>{% include 'activity/action.html' %}</li>

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load relationship_tags %}
+{% load activity_tags %}
 
 {% block title %}
 	{{ profile.name }}
@@ -37,7 +38,7 @@
 	<div id="profile-content">
 		<div id="profile-left-links">
 			<ul>
-				<li><a href="{% url userprofile_user_profile  from_user.username %}">My Profile</a></li>
+				<li><a href="{% actor_url  from_user %}">Activities</a></li>
 				<li><a href="{% url relationship_list  from_user.username "followers"%}">Followers</a></li>
 				<li class="last-link"><a href="{% url relationship_list from_user.username "following"%}">Following</a></li>
 			</ul>
