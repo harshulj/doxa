@@ -39,7 +39,7 @@ INVITATIONS_PER_USER = 10
 INVITE_MODE = True
 
 # Django private beta settings.
-
+PRIVATEBETA_ENABLE_BETA = False
 PRIVATEBETA_ALWAYS_ALLOW_MODULES = [
 		'django.contrib.auth.views',
         'django.contrib.admin.views.decorators',
