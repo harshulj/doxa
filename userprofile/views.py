@@ -34,7 +34,7 @@ def edit_profile(request, template="userprofile/edit_profile.html"):
 		if profile_form.is_valid() & pic_form.is_valid():
 			profile_form.save()
 			pic_form.save()
-			return HttpResponseRedirect(reverse('userprofile_my_profile'))
+			return HttpResponseRedirect(reverse('userprofile_user_profile', kwargs = {'username': request.user.username}))
 		else:
 			return render(request, template, {'profile_form': profile_form, 'pic_form': pic_form}, context_instance=RequestContext(request))
 	else:
