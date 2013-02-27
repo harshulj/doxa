@@ -16,6 +16,13 @@ MANAGERS = ADMINS
 
 LOGIN_REDIRECT_URL = '/'
 
+
+# Absolute URL Override
+
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: "/user/%s/" % u.username,
+}
+
 # Profile Model profile can be accessed via user.get_profile()
 AUTH_PROFILE_MODULE = "userprofile.UserProfile"
 
