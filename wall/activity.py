@@ -19,7 +19,7 @@ def handle_poll_created(sender, **kwargs):
 poll_created.connect(handle_poll_created)
 
 def handle_opinion_created(sender, **kwargs):
-	action.send(sender.author, verb=" wote an Opinion ",action_object=sender)
+	action.send(sender.author, verb=" wrote an Opinion ",action_object=sender)
 opinion_created.connect(handle_opinion_created)
 
 def handle_choice_created(sender, **kwargs):
