@@ -1,18 +1,19 @@
             <header id="site-header">
                 <div class="navbar">
                     <div class="navbar-inner">
-                        <ul class="main-menu inline nav">
-                            <li id="logo-li" class="site-nav-link"><a href="/"><img src="{{ STATIC_URL }}img/logo.png"/></a></li>
+                        <a class="brand" href="#">Doxa</a>
+                        <div class="nav-collapse collapse navbar-responsive-collapse">
+                        <ul class="nav">
                             {% if user.is_authenticated %}
-                            <li class="site-nav-link" id="search">
-                                <form id="nav-search" class="form-search search-bar" action="{% url haystack_search %}" method="GET">
+                            <li id="search">
+                                <form class="navbar-search pull-left" action="{% url haystack_search %}" method="GET">
                                     <input type="text" class="search-query rounded" name="q"  placeholder="Search" />
-                                    <input type="submit" class="btn btn-primary" value="" name="" />
                                 </form>
                             </li>
-
-                                <li class="dropdown pull-right">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
+                            <ul class="nav pull-right">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Account  <b class="caret"></b>
+                                </a>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                     <li><a href="{% url userprofile_edit_profile %}">Edit Profile</a></li>
                                     <li><a href="{% url invitation_invite %}">Invite User</a></li>
@@ -21,14 +22,15 @@
                                     <li><a href="{% url auth_logout %}">Logout</a></li>
                                 </ul>
                             </li>
-
-                            <li class="site-nav-link pull-right"><a href="{% url notifications:unread %}"><span class="notifications">Notifications <i class="icon-bell icon-white"></i></span></a></li>
-                            <li class="site-nav-link pull-right"><a href="{% url userprofile_user_profile user.username %}"><span class="profile">Profile <i class="icon-user icon-white"></i><span></a></li>
-                            <li class="site-nav-link pull-right"><a href="{% url polls_and_opinions_create_poll %}"><span class="create">Poll <i class="icon-edit icon-white"></i></span></a></li>
+                            <li class="pull-right"><a href="{% url notifications:unread %}"><span class="notifications">Notifications <i class="icon-bell icon-white"></i></span></a></li>
+                            <li class="pull-right"><a href="{% url userprofile_user_profile user.username %}"><span class="profile">Profile <i class="icon-user icon-white"></i><span></a></li>
+                            <li class="pull-right"><a href="{% url polls_and_opinions_create_poll %}"><span class="create">Poll <i class="icon-edit icon-white"></i></span></a></li>
                             {% else %}
-                            <li class="site-nav-link pull-right"><a href="{% url auth_login %}">Login <i class="icon-power icon-white"></i></a></li>
+                            <li class="pull-right"><a href="{% url auth_login %}">Login <i class="icon-power icon-white"></i></a></li>
                             {% endif %}
                         </ul>
+                        </ul>
+                    </div>
                     </div>
                 </div>
             </header>
