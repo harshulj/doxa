@@ -252,7 +252,7 @@ def get_polls_for_tags(tags):
     return TaggedItem.objects.get(Poll,tags)
 
 # Recommendation provider for polls.
-class PollRecommendationProvider(RecommendationProvider):
+'''class PollRecommendationProvider(RecommendationProvider):
     def get_users(self):
         return User.objects.filter(is_active=True, votes__isnull=False).distinct()
 
@@ -272,3 +272,4 @@ class PollRecommendationProvider(RecommendationProvider):
         return rating.content_object
 
 recommendation_registry.register(Vote, [Poll], PollRecommendationProvider)
+'''

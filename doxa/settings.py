@@ -3,7 +3,7 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-SITE_ID = 3
+SITE_ID = 1
 
 ADMINS = (
 	('Harshul Jain', 'harshulj@gmail.com'),
@@ -269,8 +269,8 @@ INSTALLED_APPS = (
     'tagging',
     'djangoratings',
     'follow',
-    'recommends',
-    'recommends.storages.djangoorm',
+   # 'recommends',
+   # 'recommends.storages.djangoorm',
     'wall',
 )
 
