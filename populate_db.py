@@ -3,6 +3,15 @@ import os
 import sys
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "doxa.settings")
+
+def add_users():
+	names = ['harshul','dhruv','saurabh','uday','devang','rahul', \
+		'shekhar','sumeet','vaibhav','suyash','sachin','nikhil']
+	from django.contrib.auth.models import User
+	for name in names:
+		User.objects.create_user(username=name,\
+		email="%s@test.com"%(name,),password=name)
+
 def readqs(lines):
 	ret = {}
 	index = 0
@@ -48,6 +57,9 @@ if __name__ == "__main__":
 	from django.contrib.auth.models import User
 	import random
 	
+	if len(sys.argv) > 1 and sys.argv[1] == 'create_users':
+		add_users()
+
 	users = User.objects.all()
 	
 	polls_dict = readqs(open("all","r").readlines())
