@@ -9,6 +9,7 @@ def add_users():
 		'shekhar','sumeet','vaibhav','suyash','sachin','nikhil']
 	from django.contrib.auth.models import User
 	for name in names:
+		print "creating user %s "%(name,)
 		User.objects.create_user(username=name,\
 		email="%s@test.com"%(name,),password=name)
 
@@ -57,7 +58,7 @@ if __name__ == "__main__":
 	from django.contrib.auth.models import User
 	import random
 	
-	if len(sys.argv) > 1 and sys.argv[1] == 'create_users':
+	if len(sys.argv) > 1 and 'create_users' in sys.argv:
 		add_users()
 
 	users = User.objects.all()
