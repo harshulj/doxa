@@ -209,10 +209,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.contrib.messages.context_processors.messages",
 	'django.contrib.auth.context_processors.auth',
 	'django.core.context_processors.request',
-    'social_auth.context_processors.social_auth_by_name_backends',
-    'social_auth.context_processors.social_auth_backends',
-    'social_auth.context_processors.social_auth_by_type_backends',
-    'social_auth.context_processors.social_auth_login_redirect',
+    #'social_auth.context_processors.social_auth_by_name_backends',
+    #'social_auth.context_processors.social_auth_backends',
+    #'social_auth.context_processors.social_auth_by_type_backends',
+    #'social_auth.context_processors.social_auth_login_redirect',
 )
 
 MIDDLEWARE_CLASSES = (
