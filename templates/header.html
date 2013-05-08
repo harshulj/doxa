@@ -10,20 +10,18 @@
                                     <input type="submit" class="btn btn-primary" value="" name="" />
                                 </form>
                             </li>
-                            <li class="site-nav-link pull-right">
-                                <a class="dropdown-toggle" data-dropdown="#dropdown-1" data-horizontal-offset="0" data-vertical-offset="18"   href="">
-                                    <span class="account">Account <i class="icon-settings icon-white"></i></span>
-                                </a>
-                            </li>
-                            <div id="dropdown-1" class="dropdown dropdown-tip dropdown-anchor-right">
-                                <ul class="dropdown-menu">
+
+                                <li class="dropdown pull-right">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
                                     <li><a href="{% url userprofile_edit_profile %}">Edit Profile</a></li>
                                     <li><a href="{% url invitation_invite %}">Invite User</a></li>
                                     <li><a href="{% url auth_password_change  %}">Change Password</a></li>
                                     <li class="dropdown-divider"></li>
                                     <li><a href="{% url auth_logout %}">Logout</a></li>
                                 </ul>
-                            </div>
+                            </li>
+
                             <li class="site-nav-link pull-right"><a href="{% url notifications:unread %}"><span class="notifications">Notifications <i class="icon-bell icon-white"></i></span></a></li>
                             <li class="site-nav-link pull-right"><a href="{% url userprofile_user_profile user.username %}"><span class="profile">Profile <i class="icon-user icon-white"></i><span></a></li>
                             <li class="site-nav-link pull-right"><a href="{% url polls_and_opinions_create_poll %}"><span class="create">Poll <i class="icon-edit icon-white"></i></span></a></li>
